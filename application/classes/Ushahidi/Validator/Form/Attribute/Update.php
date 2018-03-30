@@ -57,6 +57,8 @@ class Ushahidi_Validator_Form_Attribute_Update extends Validator
                     'video',
                     'markdown',
                     'tags',
+                    'custom_sources',
+                    'custom_actors_victims',
                 ]]],
             ],
             'type' => [
@@ -75,6 +77,8 @@ class Ushahidi_Validator_Form_Attribute_Update extends Validator
                     'title',
                     'description',
                     'tags',
+                    'custom_sources',
+                    'custom_actors_victims',
                 ]]],
             ],
             'required' => [
