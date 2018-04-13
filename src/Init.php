@@ -162,6 +162,7 @@ $di->params['Ushahidi\Factory\AuthorizerFactory']['map'] = [
 	'permissions'          => $di->lazyGet('authorizer.permission'),
 	'posts_export'         => $di->lazyGet('authorizer.post'),
 	'tos'				   => $di->lazyGet('authorizer.tos'),
+	'actors'               => $di->lazyGet('authorizer.actor'),
 ];
 
 // Repositories are used for storage and retrieval of records.
@@ -195,6 +196,7 @@ $di->params['Ushahidi\Factory\RepositoryFactory']['map'] = [
 	'permissions'          => $di->lazyGet('repository.permission'),
 	'posts_export'         => $di->lazyGet('repository.posts_export'),
 	'tos'				   => $di->lazyGet('repository.tos'),
+	'actors'               => $di->lazyGet('authorizer.actor'),
 ];
 
 // Formatters are used for to prepare the output of records. Actions that return
