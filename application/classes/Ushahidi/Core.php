@@ -267,6 +267,11 @@ abstract class Ushahidi_Core {
 			'update' => $di->lazyNew('Ushahidi_Validator_Tag_Update'),
 			'delete' => $di->lazyNew('Ushahidi_Validator_Tag_Delete'),
 		];
+		$di->params['Ushahidi\Factory\ValidatorFactory']['map']['actors'] = [
+			'create' => $di->lazyNew('Ushahidi_Validator_Actor_Create'),
+			'update' => $di->lazyNew('Ushahidi_Validator_Actor_Update'),
+			'delete' => $di->lazyNew('Ushahidi_Validator_Actor_Delete'),
+		];
 
 		$di->params['Ushahidi\Factory\ValidatorFactory']['map']['tos'] = [
 			'create' => $di->lazyNew('Ushahidi_Validator_Tos_Create'),
@@ -345,6 +350,7 @@ abstract class Ushahidi_Core {
 			'posts'                => $di->lazyNew('Ushahidi_Formatter_Post'),
 			'posts_lock'           => $di->lazyNew('Ushahidi_Formatter_Post_Lock'),
 			'tags'                 => $di->lazyNew('Ushahidi_Formatter_Tag'),
+			'actors'               => $di->lazyNew('Ushahidi_Formatter_Actor'),
 			'savedsearches'        => $di->lazyNew('Ushahidi_Formatter_Set'),
 			'sets'                 => $di->lazyNew('Ushahidi_Formatter_Set'),
 			'sets_posts'           => $di->lazyNew('Ushahidi_Formatter_Post'),
@@ -377,6 +383,7 @@ abstract class Ushahidi_Core {
 			'post',
 			'post_lock',
 			'tag',
+			'actor',
 			'user',
 			'savedsearch',
 			'set_post',
@@ -440,6 +447,7 @@ abstract class Ushahidi_Core {
 		$di->set('repository.csv_post', $di->lazyNew('Ushahidi_Repository_CSVPost'));
 		$di->set('repository.post_lock', $di->lazyNew('Ushahidi_Repository_Post_Lock'));
 		$di->set('repository.tag', $di->lazyNew('Ushahidi_Repository_Tag'));
+		$di->set('repository.actor', $di->lazyNew('Ushahidi_Repository_Actor'));
 		$di->set('repository.set', $di->lazyNew('Ushahidi_Repository_Set'));
 		$di->set('repository.savedsearch', $di->lazyNew(
 			'Ushahidi_Repository_Set',
@@ -531,9 +539,14 @@ abstract class Ushahidi_Core {
 		$di->set('repository.post.title', $di->lazyNew('Ushahidi_Repository_Post_Title'));
 		$di->set('repository.post.media', $di->lazyNew('Ushahidi_Repository_Post_Media'));
 		$di->set('repository.post.tags', $di->lazyNew('Ushahidi_Repository_Post_Tags'));
+		$di->set('repository.post.actors', $di->lazyNew('Ushahidi_Repository_Post_Actors'));
 
 		$di->params['Ushahidi_Repository_Post_Tags'] = [
 				'tag_repo' => $di->lazyGet('repository.tag')
+		];
+
+		$di->params['Ushahidi_Repository_Post_Actors'] = [
+				'actor_repo' => $di->lazyGet('repository.actor')
 		];
 
 		// The post value repo factory
@@ -554,6 +567,7 @@ abstract class Ushahidi_Core {
 					'title'    => $di->lazyGet('repository.post.title'),
 					'media'    => $di->lazyGet('repository.post.media'),
 					'tags'     => $di->lazyGet('repository.post.tags'),
+					'actors'     => $di->lazyGet('repository.post.actors'),
 				],
 			];
 
@@ -576,6 +590,7 @@ abstract class Ushahidi_Core {
 			'attribute_repo' => $di->lazyGet('repository.form_attribute'),
 			'stage_repo' => $di->lazyGet('repository.form_stage'),
 			'tag_repo' => $di->lazyGet('repository.tag'),
+			'actor_repo' => $di->lazyGet('repository.actor'),
 			'user_repo' => $di->lazyGet('repository.user'),
 			'form_repo' => $di->lazyGet('repository.form'),
 			'post_lock_repo' => $di->lazyGet('repository.post_lock'),
@@ -634,6 +649,11 @@ abstract class Ushahidi_Core {
 
 		$di->params['Ushahidi_Validator_Tag_Update'] = [
 			'repo' => $di->lazyGet('repository.tag'),
+			'role_repo' => $di->lazyGet('repository.role'),
+		];
+
+		$di->params['Ushahidi_Validator_Actor_Update'] = [
+			'repo' => $di->lazyGet('repository.actor'),
 			'role_repo' => $di->lazyGet('repository.role'),
 		];
 
@@ -706,6 +726,11 @@ abstract class Ushahidi_Core {
 			'tags_repo' => $di->lazyGet('repository.tag')
 		];
 
+		$di->set('validator.post.actors', $di->lazyNew('Ushahidi_Validator_Post_Actors'));
+		$di->params['Ushahidi_Validator_Post_Actors'] = [
+			'actors_repo' => $di->lazyGet('repository.actor')
+		];
+
 
 		$di->set('validator.post.value_factory', $di->lazyNew('Ushahidi_Validator_Post_ValueFactory'));
 		$di->params['Ushahidi_Validator_Post_ValueFactory'] = [
@@ -724,6 +749,7 @@ abstract class Ushahidi_Core {
 					'media'    => $di->lazyGet('validator.post.media'),
 					'video'    => $di->lazyGet('validator.post.video'),
 					'tags'     => $di->lazyGet('validator.post.tags'),
+					'actors'   => $di->lazyGet('validator.post.actors'),
 				],
 			];
 

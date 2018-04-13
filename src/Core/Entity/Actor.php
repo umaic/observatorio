@@ -9,9 +9,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero General Public License Version 3 (AGPL3)
  */
 
-namespace Kuery\Core\Entity;
+namespace Ushahidi\Core\Entity;
 
-use Kuery\Core\StaticEntity;
+use Ushahidi\Core\StaticEntity;
 
 class Actor extends StaticEntity
 {

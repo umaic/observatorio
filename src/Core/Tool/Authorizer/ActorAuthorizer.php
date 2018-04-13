@@ -9,18 +9,18 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero General Public License Version 3 (AGPL3)
  */
 
-namespace Kuery\Core\Tool\Authorizer;
+namespace Ushahidi\Core\Tool\Authorizer;
 
-use Kuery\Core\Entity;
-use Kuery\Core\Entity\User;
-use Kuery\Core\Entity\Actor;
-use Kuery\Core\Entity\Permission;
-use Kuery\Core\Tool\Authorizer;
-use Kuery\Core\Traits\AdminAccess;
-use Kuery\Core\Traits\UserContext;
-use Kuery\Core\Traits\PrivAccess;
-use Kuery\Core\Traits\PrivateDeployment;
-use Kuery\Core\Tool\Permissions\AclTrait;
+use Ushahidi\Core\Entity;
+use Ushahidi\Core\Entity\User;
+use Ushahidi\Core\Entity\Actor;
+use Ushahidi\Core\Entity\Permission;
+use Ushahidi\Core\Tool\Authorizer;
+use Ushahidi\Core\Traits\AdminAccess;
+use Ushahidi\Core\Traits\UserContext;
+use Ushahidi\Core\Traits\PrivAccess;
+use Ushahidi\Core\Traits\PrivateDeployment;
+use Ushahidi\Core\Tool\Permissions\AclTrait;
 
 // The `ActorAuthorizer` class is responsible for access checks on `Actors`
 class ActorAuthorizer implements Authorizer
