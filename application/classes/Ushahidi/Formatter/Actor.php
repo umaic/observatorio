@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
 /**
- * Ushahidi API Formatter for Form
+ * Ushahidi API Formatter for Actor
  *
  * @author     Ushahidi Team <team@ushahidi.com>
  * @package    Ushahidi\Application
@@ -11,14 +11,9 @@
 
 use Ushahidi\Core\Traits\FormatterAuthorizerMetadata;
 
-class Ushahidi_Formatter_Form extends Ushahidi_Formatter_API
+class Ushahidi_Formatter_Actor extends Ushahidi_Formatter_API
 {
 	use FormatterAuthorizerMetadata;
-
-	protected function format_disabled($value)
-	{
-		return (bool) $value;
-	}
 
 	protected function format_color($value)
 	{
@@ -27,25 +22,18 @@ class Ushahidi_Formatter_Form extends Ushahidi_Formatter_API
 		return $value ? '#' . $value : null;
 	}
 
-	protected function format_tags($tags)
-	{
-		$output = [];
-		foreach ($tags as $tagid)
-		{
-			$output[] = $this->get_relation('tags', $tagid);
-		}
+    protected function format_children($actors)
+    {
+        $output = [];
 
-		return $output;
-	}
+        if (is_array($actors)) {
+            foreach ($actors as $actorid)
+            {
+                $output[] = $this->get_relation('actors', $actorid);
+                //$output[] = intval($actorid);
+            }
+        }
 
-	protected function format_actors($actors)
-	{
-		$output = [];
-		foreach ($actors as $actorid)
-		{
-			$output[] = $this->get_relation('actors', $actorid);
-		}
-
-		return $output;
-	}
+        return $output;
+    }
 }
