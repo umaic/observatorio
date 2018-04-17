@@ -3,10 +3,9 @@ Ushahidi 3 - Platform API
 
 ## Installation Guide
 
-[Ushahidi Docs](http://ushahidi.s3.amazonaws.com/downloads/community_docs/Ushahidi_Platform_v3_Manual.pdf)
+[Ushahidi Docs](http://ushahidi.s3.amazonaws.com/downloads/community_docs/Ushahidi_Platform_v3_Manual.pdf) -- Section 1.2.1
 
--- Section 1.2.1
-
+[Database script](https://drive.google.com/open?id=1BDcy8EZj66u9yWnbtANjnJdbp8qOo_eg)
 
 ## What is Ushahidi?
 
