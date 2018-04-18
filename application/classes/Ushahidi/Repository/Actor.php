@@ -122,9 +122,9 @@ class Ushahidi_Repository_Actor extends Ushahidi_Repository implements
 	}
 
 	// UpdatePostActorRepository
-	public function getByActor($actor)
+	public function getByTag($tag)
 	{
-		return $this->getEntity($this->selectOne(compact('actor')));
+		return $this->getEntity($this->selectOne(compact('tag')));
 	}
 
 	// UpdatePostActorRepository
