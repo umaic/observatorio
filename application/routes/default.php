@@ -341,6 +341,20 @@ Route::set('validate', $apiBase . 'validate(/<email>)',
 	));
 
 /**
+ * Config API Route
+ */
+Route::set('config-api-2', $apiBase . 'config2(/<id>(/<key>))',
+	array(
+		'id' => '[a-zA-Z_-]+',
+		'key' => '[a-zA-Z_.-]+'
+	))
+	->defaults(array(
+		'action'     => 'index',
+		'directory'  => 'Api',
+		'controller' => 'Config',
+	));
+
+/**
  * Default Route
  */
 Route::set('default', '('.$apiBase.')')
