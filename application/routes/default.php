@@ -330,10 +330,9 @@ Route::set('oauth', 'oauth(/<action>)',
 /**
  * Config API Route
  */
-Route::set('config-api-2', $apiBase . 'validate(/<id>(/<key>))',
+Route::set('config-api-2', $apiBase . 'validate(/<email>)',
 	array(
-		'id' => '[a-zA-Z_-]+',
-		'key' => '[a-zA-Z_.-]+'
+		'email' => '[a-zA-Z_-]+',
 	))
 	->defaults(array(
 		'action'     => 'index',
