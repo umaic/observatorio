@@ -10,6 +10,11 @@
  */
 class Controller_Api_Users extends Ushahidi_Rest {
 
+	protected $_action_map = array
+	(
+		Http_Request::GET     => 'get',
+	);
+
 	protected function _scope()
 	{
 		return 'users';
