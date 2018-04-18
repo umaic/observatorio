@@ -327,15 +327,6 @@ Route::set('oauth', 'oauth(/<action>)',
 			'action'     => 'index',
 	));
 
-/**
- * Config API Route
- */
-Route::set('validate', $apiBase . 'validate(/<email>)')
-	->defaults(array(
-		'action'     => 'validate',
-		'directory'  => 'Api',
-		'controller' => 'Users',
-	));
 
 /**
  * Default Route
