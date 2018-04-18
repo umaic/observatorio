@@ -327,7 +327,7 @@ Route::set('oauth', 'oauth(/<action>)',
 			'action'     => 'index',
 	));
 
-Route::set('validate', $apiBase . '/validate/<email>',
+Route::set('validate', $apiBase . 'validate/<email>',
 array(
 	'email' => '\d+'
 ))
