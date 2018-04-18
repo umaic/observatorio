@@ -58,4 +58,18 @@ class Controller_Api_Users extends Ushahidi_Rest {
 			$this->_usecase->setIdentifiers(['id' => $id]);
 		}
 	}
+
+	/**
+	 * Validate user by email
+	 *
+	 * GET /api/users/validate
+	 *
+	 * @return void
+	 */
+	public function action_get_validate()
+	{
+		$email = $this->request->param('email');
+		return $query = DB::select()->from('users')
+		->where('users.email', '=', TRUE);
+	}
 }
