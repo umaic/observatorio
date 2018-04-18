@@ -15,6 +15,11 @@ class Controller_Api_Validation extends Ushahidi_Rest {
 		Http_Request::GET     => 'get',
 	);
 
+	protected function _is_auth_required()
+	{
+		return FALSE;
+	}
+
 	protected function _scope()
 	{
 		return 'users';
