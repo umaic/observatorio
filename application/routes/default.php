@@ -327,13 +327,13 @@ Route::set('oauth', 'oauth(/<action>)',
 			'action'     => 'index',
 	));
 
-Route::set('api', $apiBase . '<controller>/validate/<email>',
+Route::set('validate', $apiBase . '/validate/<email>',
 array(
 	'email' => '\d+'
 ))
 ->defaults(array(
 	'action'     => 'validate',
-	'directory'  => 'Api/'
+	'controller' => 'Users'
 ));
 
 /**
