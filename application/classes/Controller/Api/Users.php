@@ -12,7 +12,7 @@ class Controller_Api_Users extends Ushahidi_Rest {
 
 	protected $_action_map = array
 	(
-		Http_Request::GET     => 'GET'
+		Http_Request::GET     => 'get'
 	);
 
 	protected function _scope()
@@ -73,8 +73,8 @@ class Controller_Api_Users extends Ushahidi_Rest {
 	 */
 	public function action_get_validate()
 	{
-		$email = $this->request->param('email');
+		//$email = $this->request->param('email');
 		return $query = DB::select()->from('users')
-		->where('users.email', '=', TRUE);
+		->where('users.email', '=', '');
 	}
 }
