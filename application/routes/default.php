@@ -335,9 +335,9 @@ Route::set('config-api-2', $apiBase . 'validate(/<email>)',
 		'email' => '[a-zA-Z_-]+',
 	))
 	->defaults(array(
-		'action'     => 'index',
+		'action'     => 'validate',
 		'directory'  => 'Api',
-		'controller' => 'Config',
+		'controller' => 'Users',
 	));
 
 /**
