@@ -13,6 +13,8 @@ class Controller_Api_Users extends Ushahidi_Rest {
 	protected $_action_map = array
 	(
 		Http_Request::GET     => 'get',
+		Http_Request::PUT     => 'put', // Typically Update..
+		Http_Request::OPTIONS => 'options',
 	);
 
 	protected function _scope()
