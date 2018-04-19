@@ -9,26 +9,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero General Public License Version 3 (AGPL3)
  */
 
-class Controller_Validation extends Ushahidi_Rest {
+class Controller_Validation extends Controller {
 
-	public function before()
-	{
-		if ($this->request->method() == HTTP_Request::GET){
-			$this->request->action('validate');
-		}
-		parent::before();
-	}
-
-	public function after()
-	{
-		$this->add_cors_headers($this->response);
-		parent::after();
-	}
-
-	protected function _scope()
-	{
-		return null;
-	}
+	
 
 	/**
 	 * Retrieve a basic information about the API
