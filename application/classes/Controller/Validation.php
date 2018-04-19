@@ -24,7 +24,7 @@ class Controller_Validation extends Controller {
 	{
 		$email = "";
 		foreach($_POST as $key=>$value)
-			$email = $value;
+			$email = $key;
 		$query = DB::select()->from('users')
 		->where('users.email', '=', $email);
 		$result = $query->execute();
