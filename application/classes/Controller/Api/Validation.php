@@ -37,7 +37,7 @@ class Controller_Api_Validation extends Ushahidi_Rest {
 	 *
 	 * @return void
 	 */
-	public function action_index()
+	public function action_validate()
 	{
 		$email = $this->request->param('email');
 		return $query = DB::select()->from('users')
