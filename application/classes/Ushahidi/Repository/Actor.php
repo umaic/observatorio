@@ -133,7 +133,7 @@ class Ushahidi_Repository_Actor extends Ushahidi_Repository implements
 		$query = $this->selectQuery()
 			->resetSelect()
 			->select([DB::expr('COUNT(*)'), 'total'])
-			->where('id', '=', $actor_or_id)
+			->where('id', '=', $tag_or_id)
 			->or_where('tag', '=', $tag_or_id)
 			->execute($this->db);
 
