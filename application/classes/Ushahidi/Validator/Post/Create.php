@@ -25,6 +25,7 @@ use Ushahidi\Core\Traits\AdminAccess;
 use Ushahidi\Core\Traits\Permissions\ManagePosts;
 use Ushahidi\Core\Usecase\Post\UpdatePostRepository;
 use Ushahidi\Core\Usecase\Post\UpdatePostTagRepository;
+use Ushahidi\Core\Usecase\Post\UpdatePostActorRepository;
 
 class Ushahidi_Validator_Post_Create extends Validator
 {
@@ -40,6 +41,7 @@ class Ushahidi_Validator_Post_Create extends Validator
 	protected $attribute_repo;
 	protected $stage_repo;
 	protected $tag_repo;
+	protected $actor_repo;
 	protected $post_lock_repo;
 	protected $user_repo;
 	protected $post_value_factory;
@@ -53,6 +55,7 @@ class Ushahidi_Validator_Post_Create extends Validator
 	 * @param UpdatePostRepository                  $repo
 	 * @param FormAttributeRepository               $form_attribute_repo
 	 * @param TagRepository                         $tag_repo
+	 * @param ActorRepository                       $actor_repo
 	 * @param UserRepository                        $user_repo
 	 * @param FormRepository                        $form_repo
 	 * @param RoleRepository                        $role_repo
@@ -64,6 +67,7 @@ class Ushahidi_Validator_Post_Create extends Validator
 		FormAttributeRepository $attribute_repo,
 		FormStageRepository $stage_repo,
 		UpdatePostTagRepository $tag_repo,
+		UpdatePostActorRepository $actor_repo,
 		UserRepository $user_repo,
 		FormRepository $form_repo,
 		RoleRepository $role_repo,
@@ -75,6 +79,7 @@ class Ushahidi_Validator_Post_Create extends Validator
 		$this->attribute_repo = $attribute_repo;
 		$this->stage_repo = $stage_repo;
 		$this->tag_repo = $tag_repo;
+		$this->actor_repo = $actor_repo;
 		$this->user_repo = $user_repo;
 		$this->form_repo = $form_repo;
 		$this->role_repo = $role_repo;
@@ -130,6 +135,9 @@ class Ushahidi_Validator_Post_Create extends Validator
 			],
 			'tags' => [
 				[[$this, 'checkTags'], [':validation', ':value']],
+			],
+			'actors' => [
+				[[$this, 'checkActors'], [':validation', ':value']],
 			],
 			'user_id' => [
 				[[$this->user_repo, 'exists'], [':value']],
@@ -225,6 +233,25 @@ class Ushahidi_Validator_Post_Create extends Validator
 			if (! $this->tag_repo->doesTagExist($tag))
 			{
 				$validation->error('tags', 'tagDoesNotExist', [$tag]);
+			}
+		}
+	}
+
+	public function checkActors(Validation $validation, $actors)
+	{
+		if (!$actors) {
+			return;
+		}
+
+		foreach ($actors as $key => $actor)
+		{
+			if (is_array($actor)) {
+				$actor = $actor['id'];
+			}
+
+			if (! $this->actor_repo->doesActorExist($actor))
+			{
+				$validation->error('actors', 'actorDoesNotExist', [$actor]);
 			}
 		}
 	}

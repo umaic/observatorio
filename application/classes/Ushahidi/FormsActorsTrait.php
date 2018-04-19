@@ -24,7 +24,7 @@ trait Ushahidi_FormsActorsTrait
             ->as_array();
 
         $actors = [];
-        // Combine all tag ids into 1 array
+        // Combine all actor ids into 1 array
         foreach ($attributes as $attr) {
             $options = json_decode($attr['options'], TRUE);
             if (is_array($options)) {

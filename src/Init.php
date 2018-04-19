@@ -143,12 +143,14 @@ $di->params['Ushahidi\Factory\AuthorizerFactory']['map'] = [
 	'form_roles'           => $di->lazyGet('authorizer.form_role'),
 	'form_stages'          => $di->lazyGet('authorizer.form_stage'),
 	'tags'                 => $di->lazyGet('authorizer.tag'),
+	'actors'               => $di->lazyGet('authorizer.actor'),
 	'layers'               => $di->lazyGet('authorizer.layer'),
 	'media'                => $di->lazyGet('authorizer.media'),
 	'messages'             => $di->lazyGet('authorizer.message'),
 	'posts'                => $di->lazyGet('authorizer.post'),
 	'posts_lock'           => $di->lazyGet('authorizer.post_lock'),
 	'tags'                 => $di->lazyGet('authorizer.tag'),
+	'actors'               => $di->lazyGet('authorizer.actor'),
 	'sets'                 => $di->lazyGet('authorizer.set'),
 	'sets_posts'           => $di->lazyGet('authorizer.post'),
 	'savedsearches'        => $di->lazyGet('authorizer.savedsearch'),
@@ -162,7 +164,6 @@ $di->params['Ushahidi\Factory\AuthorizerFactory']['map'] = [
 	'permissions'          => $di->lazyGet('authorizer.permission'),
 	'posts_export'         => $di->lazyGet('authorizer.post'),
 	'tos'				   => $di->lazyGet('authorizer.tos'),
-	'actors'               => $di->lazyGet('authorizer.actor'),
 ];
 
 // Repositories are used for storage and retrieval of records.
@@ -183,6 +184,7 @@ $di->params['Ushahidi\Factory\RepositoryFactory']['map'] = [
 	'posts'                => $di->lazyGet('repository.post'),
 	'posts_lock'           => $di->lazyGet('repository.post_lock'),
 	'tags'                 => $di->lazyGet('repository.tag'),
+	'actors'               => $di->lazyGet('authorizer.actor'),
 	'sets'                 => $di->lazyGet('repository.set'),
 	'sets_posts'           => $di->lazyGet('repository.post'),
 	'savedsearches'        => $di->lazyGet('repository.savedsearch'),
@@ -196,7 +198,6 @@ $di->params['Ushahidi\Factory\RepositoryFactory']['map'] = [
 	'permissions'          => $di->lazyGet('repository.permission'),
 	'posts_export'         => $di->lazyGet('repository.posts_export'),
 	'tos'				   => $di->lazyGet('repository.tos'),
-	'actors'               => $di->lazyGet('authorizer.actor'),
 ];
 
 // Formatters are used for to prepare the output of records. Actions that return
