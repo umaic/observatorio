@@ -20,9 +20,10 @@ class Controller_Validation extends Controller {
 	 *
 	 * @return void
 	 */
-	public function action_testing()
+	public function action_validate()
 	{
 		$email = $this->request->param('email');
+		return $email;
 		$query = DB::select()->from('users')
 		->where('users.email', '=', '');
 		$this->response->body(json_encode($query));
