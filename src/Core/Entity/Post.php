@@ -37,6 +37,7 @@ class Post extends StaticEntity
 	protected $values;
 	protected $post_date;
 	protected $tags;
+	protected $actors;
 	protected $published_to;
 	protected $completed_stages;
 	protected $sets;
@@ -91,6 +92,7 @@ class Post extends StaticEntity
 			'locale'          => '*lowercasestring',
 			'values'          => 'array',
 			'tags'            => 'array',
+			'actors'            => 'array',
 			'published_to'    => '*json',
 			'completed_stages'=> '*arrayInt',
 			'sets'            => 'array',

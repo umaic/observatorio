@@ -49,7 +49,7 @@ class Ushahidi_Validator_Actor_Update extends Validator
 				['regex', [':value', '/^[\pL\pN\pP ]++$/uD']],
 			],
 			'type' => [
-				['in_array', [':value', ['category', 'status']]],
+				['in_array', [':value', ['actor']]],
 			],
 			'color' => [
 				['color'],
