@@ -24,7 +24,7 @@ class Controller_Validation extends Controller {
 	{
 		$email = $this->request->post('email');
 		$query = DB::select()->from('users')
-		->where('users.email', '=', $_POST['email']);
+		->where('users.email', '=', '');
 		$result = $query->execute();
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
