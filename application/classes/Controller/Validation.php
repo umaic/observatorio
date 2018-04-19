@@ -24,13 +24,13 @@ class Controller_Validation extends Controller {
 	{
 		$email = "";
 		foreach($_POST as $key=>$value)
-			$email = $key;
+			$email = $key . '' . $value;
 		$query = DB::select()->from('users')
 		->where('users.email', '=', $email);
 		$result = $query->execute();
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
-		$this->response->body($result->count());
+		$this->response->body($email);
 	}
 }
