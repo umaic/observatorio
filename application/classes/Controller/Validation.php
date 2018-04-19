@@ -22,11 +22,11 @@ class Controller_Validation extends Controller {
 	 */
 	public function action_validate()
 	{
-		$this->response->body('hello, world!');
+		
 		$email = $this->request->param('email');
-		return $email;
-		$query = DB::select()->from('users')
+		$this->response->body('hello, world! ' . $email);;
+		/*$query = DB::select()->from('users')
 		->where('users.email', '=', '');
-		$this->response->body(json_encode($query));
+		$this->response->body(json_encode($query));*/
 	}
 }
