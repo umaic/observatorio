@@ -28,7 +28,6 @@ class Controller_Validation extends Controller {
 		$result = $query->execute();
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-		$this->response->headers('Content-Type', 'application/json');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
 		$this->response->body($email);
 	}
