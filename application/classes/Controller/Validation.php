@@ -30,6 +30,6 @@ class Controller_Validation extends Controller {
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
 		$myPost = array_values($_POST);
-		$this->response->body(var_dump($myPost[0]));
+		$this->response->body(var_dump($myPost));
 	}
 }
