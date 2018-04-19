@@ -23,14 +23,10 @@ class Controller_Validation extends Controller {
 	public function action_validate()
 	{
 		$email = $this->request->post('email');
-		//$this->response->body('hello, world! ' . $email);;
 		$query = DB::select()->from('users')
 		->where('users.email', '=', $email);
 		$result = $query->execute();
+		$this->response->send_headers();
 		$this->response->body($result->count());
-		/*if($results)
-			$this->response->body(json_encode($query));
-		else
-			$this->response->body('{user:false}');*/
 	}
 }
