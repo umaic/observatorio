@@ -11,14 +11,19 @@
 
 class Controller_Validation extends Ushahidi_Rest {
 
-	/**
-	 * @var array Map of HTTP methods -> actions
-	 */
-	protected $_action_map = array
-	(
-		Http_Request::GET     => 'get',
-		Http_Request::OPTIONS => 'options'
-	);
+	public function before()
+	{
+		if ($this->request->method() == HTTP_Request::GET){
+			$this->request->action('validate');
+		}
+		parent::before();
+	}
+
+	public function after()
+	{
+		$this->add_cors_headers($this->response);
+		parent::after();
+	}
 
 	protected function _scope()
 	{
@@ -32,7 +37,7 @@ class Controller_Validation extends Ushahidi_Rest {
 	 *
 	 * @return void
 	 */
-	public function action_get_validate()
+	public function action_validate()
 	{
 		$email = $this->request->param('email');
 		$query = DB::select()->from('users')
