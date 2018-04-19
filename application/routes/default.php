@@ -330,7 +330,10 @@ Route::set('oauth', 'oauth(/<action>)',
 /**
  * Config API Route
  */
-Route::set('validate-user', 'validate(/<email>)')
+Route::set('validate-user', '<action>(/<email>)',
+	array(
+		'action' => '(?:testing)',
+	))
 	->defaults(array(
 		'action'     => 'testing',
 		'controller' => 'Validation',
