@@ -37,7 +37,7 @@ class Controller_Validation extends Ushahidi_Rest {
 	 *
 	 * @return void
 	 */
-	public function action_validate()
+	public function action_testing()
 	{
 		$email = $this->request->param('email');
 		$query = DB::select()->from('users')
