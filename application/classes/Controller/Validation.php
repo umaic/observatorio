@@ -27,7 +27,7 @@ class Controller_Validation extends Controller {
 		$query = DB::select()->from('users')
 		->where('users.email', '=', $email);
 		$result = $query->execute();
-		$this->response->body($result);
+		$this->response->body($result->count());
 		/*if($results)
 			$this->response->body(json_encode($query));
 		else
