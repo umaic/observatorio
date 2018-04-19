@@ -93,7 +93,7 @@ class UsecaseFactory
 	 */
 	public function get($resource, $action)
 	{
-		Log::instance()->add(Log::NOTICE, $resource)->write();
+		//Log::instance()->add(Log::NOTICE, $resource)->write();
 		if (isset($this->map[$resource][$action])) {
 			$factory = $this->map[$resource][$action];
 		} elseif (isset($this->actions[$action])) {
