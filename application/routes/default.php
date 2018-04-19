@@ -332,9 +332,9 @@ Route::set('oauth', 'oauth(/<action>)',
  */
 Route::set('config-api-2', $apiBase . 'validate(/<email>)')
 	->defaults(array(
-		'action'     => 'index',
+		'action'     => 'validate',
 		'directory'  => 'Api',
-		'controller' => 'Validation',
+		'controller' => 'Index',
 	));
 
 /**

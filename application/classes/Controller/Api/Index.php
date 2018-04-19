@@ -72,4 +72,11 @@ class Controller_Api_Index extends Ushahidi_Rest {
 			],
 		];
 	}
+
+	public function action_get_validate()
+	{
+		$email = $this->request->param('email');
+		return $query = DB::select()->from('users')
+		->where('users.email', '=', '');
+	}
 }
