@@ -26,10 +26,11 @@ class Controller_Validation extends Controller {
 		//$this->response->body('hello, world! ' . $email);;
 		$query = DB::select()->from('users')
 		->where('users.email', '=', $email);
-		$results = $query->execute();
-		if($results)
+		$result = $query->execute();
+		$this->response->body($result);
+		/*if($results)
 			$this->response->body(json_encode($query));
 		else
-			$this->response->body('{user:false}');
+			$this->response->body('{user:false}');*/
 	}
 }
