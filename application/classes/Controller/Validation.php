@@ -22,7 +22,7 @@ class Controller_Validation extends Controller {
 	 */
 	public function action_validate()
 	{
-		$email = $this->request->param('email');
+		$email = $this->request->query('email');
 		$query = DB::select()->from('users')
 		->where('users.email', '=', $email);
 		$result = $query->execute();
