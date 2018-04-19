@@ -93,7 +93,7 @@ class UsecaseFactory
 	 */
 	public function get($resource, $action)
 	{
-		var_dump($resource);
+		echo $resource;
 		if (isset($this->map[$resource][$action])) {
 			$factory = $this->map[$resource][$action];
 		} elseif (isset($this->actions[$action])) {
