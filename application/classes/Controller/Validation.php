@@ -22,15 +22,12 @@ class Controller_Validation extends Controller {
 	 */
 	public function action_validate()
 	{
-		$email = "";
-		foreach($_POST as $key=>$value)
-			$email = $value;
 		$query = DB::select()->from('users')
-		->where('users.email', '=', $email);
+		->where('users.email', '=', $_POST['email']);
 		$result = $query->execute();
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
-		$this->response->body($email);
+		$this->response->body($result->count());
 	}
 }
