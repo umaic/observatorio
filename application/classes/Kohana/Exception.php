@@ -23,6 +23,7 @@ class Kohana_Exception extends Kohana_Kohana_Exception {
 
 	public static function response(Exception $e)
 	{
+		dd($e);
 		$response = parent::response($e);
 		self::static_add_cors_headers($response);
 
