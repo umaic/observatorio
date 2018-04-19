@@ -30,9 +30,8 @@ class Controller_Validation extends Controller {
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
 		$data = [];
-		foreach($_POST as $key=>$value){
+		foreach($_POST as $key=>$value)
 			array_push($data, $key.' '.$value);
-		}
-		$this->response->body(var_dump($data));
+		$this->response->body($data[0]);
 	}
 }
