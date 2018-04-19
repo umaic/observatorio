@@ -25,7 +25,7 @@ class Controller_Validation extends Controller {
 		$db = new Database;
 		$email = $this->request->post('email');
 		//$this->response->body('hello, world! ' . $email);;
-		$query = $db->query("SELECT count(*) FROM users where email = " . $email);
+		$query = $db->query('SELECT `username` FROM `users` where `email` = ?', array($email));
 		if($query)
 			$this->response->body(json_encode($query));
 		else
