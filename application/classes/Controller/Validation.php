@@ -9,7 +9,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero General Public License Version 3 (AGPL3)
  */
 
-class Controller_Api_Validation extends Ushahidi_Rest {
+class Controller_Validation extends Ushahidi_Rest {
 
 	/**
 	 * @var array Map of HTTP methods -> actions
@@ -23,11 +23,6 @@ class Controller_Api_Validation extends Ushahidi_Rest {
 	protected function _scope()
 	{
 		return null;
-	}
-
-	protected function _is_auth_required()
-	{
-		return FALSE;
 	}
 
 	/**
