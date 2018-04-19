@@ -92,7 +92,7 @@ class Ushahidi_Repository_Post_Actors extends Ushahidi_Repository_Post_Value
 
 		// Find the actor by id or name
 		// @todo this should happen before we even get here
-		$actor_entity = $this->actor_repo->getByActor($actor);
+		$actor_entity = $this->actor_repo->getByTag($actor);
 		if (! $actor_entity->id)
 		{
 			$actor_entity = $this->actor_repo->get($actor);

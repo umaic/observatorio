@@ -35,7 +35,7 @@ trait Ushahidi_FormsActorsTrait
         return $actors;
     }
 
-    private function removeTagFromAttributeOptions($id)
+    private function removeActorFromAttributeOptions($id)
     {
         // Grab all actors attributes
         $attr = DB::select('id', 'options')

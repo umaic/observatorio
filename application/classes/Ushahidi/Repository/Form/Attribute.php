@@ -38,6 +38,7 @@ class Ushahidi_Repository_Form_Attribute extends Ushahidi_Repository implements
 	// Use the JSON transcoder to encode properties
 	use Ushahidi_JsonTranscodeRepository;
 	use Ushahidi_FormsTagsTrait;
+	use Ushahidi_FormsActorsTrait;
 
 	protected $form_stage_repo;
 

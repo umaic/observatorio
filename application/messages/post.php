@@ -31,6 +31,7 @@ return [
 		'email'         => 'The field :param1 must be an email address, Given: :param2',
 		'exists'        => 'The field :param1 must be a valid post id, Post id: :param2',
     	'tagExists'     => 'The field :param1 must be a valid category id or name, Category: :param2',
+    	'actorExists'   => 'The field :param1 must be a valid actor id or name, Actor: :param2',
 		'max_length'    => 'The field :param1 must not exceed :param2 characters long, Given: :param2',
 		'invalidForm'   => 'The field :param1 has the wrong post type, Post id: :param2',
 		'numeric'       => 'The field :param1 must be numeric, Given: :param2',
