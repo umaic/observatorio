@@ -32,7 +32,7 @@ class Actor extends StaticEntity
 	protected function getDerived()
 	{
 		return [
-			'slug' => 'actor',
+			'slug' => 'tag',
 		];
 	}
 
