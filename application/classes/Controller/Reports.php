@@ -28,10 +28,26 @@ class Controller_Reports extends Controller {
 		->on('posts.form_id', '=', 'form.id')
 		->where('posts.post_date', '>=', $weekago);
 		$result = $query->execute()->as_array();
+		$data = [];
+		foreach($result as $r){
+			array_push($data, 'Hola...');
+			//$this->response->body('Hola...');
+			/*if($last_date == null)
+				$last_date = $r['post_date'];
+			if($last_date == $r['post_date']){
+				$count++;
+			}else{
+				array_push($totals, [$last_date => $count]);
+				$count = 1;
+				$last_date = $r['post_date'];
+			}*/
+		}
+		array_push($data, 'Final...');
+
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
 		$this->response->headers('Content-Type', 'application/json; charset=utf-8');
-		$this->response->body(json_encode(['total' => $result]));
+		$this->response->body(json_encode(['total' => $data]));
 	}
 }
