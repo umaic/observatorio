@@ -59,6 +59,8 @@ class Controller_Reports extends Controller {
 				if($last_date == $date){
 					$count++;
 				}else{
+					if($totals[$r['name']] == null)
+						$totals[$r['name']] = []; 
 					array_push($totals[$r['name']], [$last_date => $count]);
 					$count = 1;
 					$last_date = $date;
