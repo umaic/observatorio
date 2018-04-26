@@ -23,21 +23,24 @@ class Controller_Reports extends Controller {
 	public function action_getData()
 	{
 		$weekago = date('Y-m-d', time() - (7 * 24 * 60 * 60));
-		$query = DB::select()->from('posts')
+		$query = DB::select('posts.post_date', 'forms.name')->from('posts')
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
 		->where('posts.post_date', '>=', $weekago)
 		->order_by('posts.post_date', 'DESC');
 		$result = $query->execute()->as_array();
 		$last_date = null;
+		$last_type = null;
 		$count = 0;
 		$data = [];
 		$totals = [];
+		$totals_type = [];
 		if(count($result) == 0){
 			array_push($totals, [$result[0]['post_date'] => 1]);
 		}else{
 			foreach($result as $r){
 				$date = substr($r['post_date'], 0, 10);
+				//Total by date
 				if($last_date == null)
 					$last_date = $date;
 				if($last_date == $date){
@@ -48,9 +51,25 @@ class Controller_Reports extends Controller {
 					$last_date = $date;
 				}
 			}
+			usort($result, "name");
+			foreach($result as $r){
+				//Total By Forms
+				if($last_type == null)
+					$last_type = $r['name'];
+				if($last_type == $r['name']){
+					$count++;
+				}else{
+					array_push($totals_type, [$last_type => $count]);
+					$count = 1;
+					$last_type = $r['name'];
+				}
+			}
 		}
 		$data = [
-			'total_per_day' => $totals
+			'events'=> [
+				'total_per_day' => $totals,
+				'total_per_type' => $totals_type
+			]
 		];
 
 		$this->response->headers('Access-Control-Allow-Origin', '*');
