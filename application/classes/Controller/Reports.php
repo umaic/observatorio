@@ -54,7 +54,7 @@ class Controller_Reports extends Controller {
 			foreach($result as $r){
 				$date = substr($r['post_date'], 0, 10);
 				if(!isset($totals[$date]))
-					$totals[$date] = 0; 
+					$totals[$date] = [0]; 
 				array_push($totals[$date], $totals[$date] + 1);
 			}
 			$map = function($result) {return $result['name'];};
