@@ -23,7 +23,7 @@ class Controller_Reports extends Controller {
 	public function action_getData()
 	{
 		$weekago = date('Y-m-d', time() - (7 * 24 * 60 * 60));
-		$query = DB::select('SUBSTRING(posts.post_date, 0, 10)', 'form.name')->from('posts')
+		$query = DB::select('posts.post_date', 'form.name')->from('posts')
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
 		->where('posts.post_date', '>=', $weekago)
