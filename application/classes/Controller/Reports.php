@@ -24,13 +24,13 @@ class Controller_Reports extends Controller {
 	{
 		$weekago = date('Y-m-d', time() - (7 * 24 * 60 * 60));
 		//General
-		$query = DB::select('posts.post_date', 'form.name', 'posts.id', 'tag.id')->from('posts')
+		$query = DB::select('posts.post_date', 'form.name')->from('posts')
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
 		->where('posts.post_date', '>=', $weekago)
 		->order_by('posts.post_date', 'DESC');
 		//Categories
-		$query2 = DB::select('tag.tag', 'form.name')->from('posts')
+		$query2 = DB::select('tag.tag', 'form.name', 'posts.id', 'tag.id')->from('posts')
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
 		->join(array('posts_tags', 'pt'))
