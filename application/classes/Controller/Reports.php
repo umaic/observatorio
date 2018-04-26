@@ -34,7 +34,7 @@ class Controller_Reports extends Controller {
 		$totals = [];
 		foreach($result as $r){
 			$date = substr($r['post_date'], 0, 10);
-			array_push($totals, '{$last_date : $count}');
+			array_push($totals, '{' . $last_date .' : '. $count.'}');
 			if($last_date == null)
 				$last_date = $date;
 			if($last_date == $date){
