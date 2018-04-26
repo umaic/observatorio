@@ -46,7 +46,6 @@ class Controller_Reports extends Controller {
 					$count = 1;
 					$last_date = $date;
 				}
-				array_push($totals, [$last_date => $count]);
 			}
 		}
 
