@@ -32,6 +32,6 @@ class Controller_Reports extends Controller {
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
 		$this->response->headers('Content-Type', 'application/json; charset=utf-8');
-		$this->response->body(json_encode($result));
+		$this->response->body(json_encode(['total' => $result]));
 	}
 }
