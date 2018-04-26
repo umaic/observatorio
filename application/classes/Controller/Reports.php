@@ -61,7 +61,7 @@ class Controller_Reports extends Controller {
 			}
 			$map = function($result) {return $result['name'];};
 			$totals_type = array_count_values(array_map($map, $result));
-			$map = function($result) {return $result['post_date'];};
+			$map = function($result) {return substr($result['post_date'], 0, 10);}
 			$dates = array_count_values(array_map($map, $result));
 		}
 		$map = function($result2) {return $result2['tag'];};
