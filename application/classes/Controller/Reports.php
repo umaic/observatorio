@@ -58,7 +58,7 @@ class Controller_Reports extends Controller {
 			$count = 0;
 			foreach($result as $r){
 				//Total By Forms
-				/*if($last_type == null)
+				if($last_type == null)
 					$last_type = $r['name'];
 				if($last_type == $r['name']){
 					$count++;
@@ -66,8 +66,8 @@ class Controller_Reports extends Controller {
 					array_push($totals_type, [$last_type => $count]);
 					$count = 1;
 					$last_type = $r['name'];
-				}*/
-				array_push($totals_type, [$r['name'] => $count]);
+				}
+				//array_push($totals_type, [$r['name'] => $count]);
 			}
 		}
 		$data = [
