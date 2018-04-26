@@ -23,12 +23,24 @@ class Controller_Reports extends Controller {
 	public function action_getData()
 	{
 		$weekago = date('Y-m-d', time() - (7 * 24 * 60 * 60));
+		//General
 		$query = DB::select('posts.post_date', 'form.name')->from('posts')
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
 		->where('posts.post_date', '>=', $weekago)
 		->order_by('posts.post_date', 'DESC');
+		//Categories
+		$query2 = DB::select('tag.tag', 'form.name')->from('posts')
+		->join(array('forms', 'form'))
+		->on('posts.form_id', '=', 'form.id')
+		->join(array('posts_tags', 'pt'))
+		->on('pt.post_id', '=', 'posts.id')
+		->join(array('tags', 'tag'))
+		->on('tag.id', '=', 'pt.tag_id')
+		->where('posts.post_date', '>=', $weekago)
+		->order_by('posts.post_date', 'DESC');
 		$result = $query->execute()->as_array();
+		$result2 = $query2->execute()->as_array();
 		$last_date = null;
 		$last_type = null;
 		$count = 0;
@@ -57,8 +69,9 @@ class Controller_Reports extends Controller {
 		}
 		$data = [
 			'events'=> [
-				'total_per_day' => $totals,
-				'total_per_type' => $totals_type
+				'total_by_day' => $totals,
+				'total_by_type' => $totals_type,
+				'total_by_categories' => $result2
 			]
 		];
 
