@@ -53,18 +53,9 @@ class Controller_Reports extends Controller {
 		}else{
 			foreach($result as $r){
 				$date = substr($r['post_date'], 0, 10);
-				//Total by date
-				if($last_date == null)
-					$last_date = $date;
-				if($last_date == $date){
-					$count++;
-				}else{
-					if(!isset($totals[$r['name']]))
-						$totals[$r['name']] = []; 
-					array_push($totals[$r['name']], [$last_date => $count]);
-					$count = 1;
-					$last_date = $date;
-				}
+				if(!isset($totals[$date]))
+					$totals[$date] = 0; 
+				array_push($totals[$date], $totals[$date] + 1);
 			}
 			$map = function($result) {return $result['name'];};
 			$totals_type = array_count_values(array_map($map, $result));
