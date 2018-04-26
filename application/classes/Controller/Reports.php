@@ -33,7 +33,7 @@ class Controller_Reports extends Controller {
 		$last_date = null;
 		$count = 0;
 		foreach($result as $r){
-			$this->response->body($r['post_date']);
+			$this->response->body('Hola...');
 			/*if($last_date == null)
 				$last_date = $r['post_date'];
 			if($last_date == $r['post_date']){
@@ -50,6 +50,6 @@ class Controller_Reports extends Controller {
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
 		$this->response->headers('Content-Type', 'application/json; charset=utf-8');
-		//$this->response->body(json_encode($data));
+		$this->response->body(json_encode($data));
 	}
 }
