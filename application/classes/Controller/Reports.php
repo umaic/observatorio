@@ -47,6 +47,7 @@ class Controller_Reports extends Controller {
 		$data = [];
 		$totals = [];
 		$totals_type = [];
+		$total_categories = [];
 		if(count($result) == 0){
 			array_push($totals, [$result[0]['post_date'] => 1]);
 		}else{
@@ -64,9 +65,10 @@ class Controller_Reports extends Controller {
 				}
 			}
 			$map = function($result) {return $result['name'];};
-			$totals_type = array_count_values(array_map($map, $result));
-			//$this->array_sort_by_column($result, 'name');
+			$totals_type = array_count_values(array_map($map, $result2));
 		}
+		$map = function($result2) {return $result['tag'];};
+		$total_categories = array_count_values(array_map($map, $result2));
 		$data = [
 			'events'=> [
 				'total_by_day' => $totals,
