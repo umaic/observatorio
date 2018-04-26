@@ -26,12 +26,30 @@ class Controller_Reports extends Controller {
 		$query = DB::select()->from('posts')
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
-		->where('posts.post_date', '>=', $weekago);
+		->where('posts.post_date', '>=', $weekago)
+		->orderBy('posts.post_date');
 		$result = $query->execute()->as_array();
+		$totals = [];
+		$last_date = null;
+		$count = 0;
+		foreach($result as $r){
+			if($last_date == null)
+				$last_date = $r['post_date'];
+			if($last_date == $r['post_date']){
+				$count++;
+			}else{
+				array_push($totals, [$last_date => $count]);
+				$count = 1;
+				$last_date = $r['post_date'];
+			}
+		}
+		$data = [
+			'totals' => $totals
+		];
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
 		$this->response->headers('Content-Type', 'application/json; charset=utf-8');
-		$this->response->body(json_encode($result));
+		$this->response->body(json_encode($data));
 	}
 }
