@@ -43,9 +43,8 @@ class Controller_Reports extends Controller {
 				$last_date = $r['post_date'];
 			}
 		}
-		$data = [
-			'totals' => $totals
-		];
+		$data = array();
+		array_push($data, ['totals' => $totals]);
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
