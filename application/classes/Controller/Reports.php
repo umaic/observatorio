@@ -73,7 +73,7 @@ class Controller_Reports extends Controller {
 			'events'=> [
 				'total_by_day' => $totals,
 				'total_by_type' => $totals_type,
-				'total_by_categories' => $result2
+				'total_by_categories' => $total_categories
 			]
 		];
 
