@@ -31,6 +31,6 @@ class Controller_Reports extends Controller {
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
-		$this->response->body($result->count());
+		$this->response->body(json_encode($result));
 	}
 }
