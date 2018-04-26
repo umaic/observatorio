@@ -65,9 +65,9 @@ class Controller_Reports extends Controller {
 				}
 			}
 			$map = function($result) {return $result['name'];};
-			$totals_type = array_count_values(array_map($map, $result2));
+			$totals_type = array_count_values(array_map($map, $result));
 		}
-		$map = function($result2) {return $result['tag'];};
+		$map = function($result2) {return $result2['tag'];};
 		$total_categories = array_count_values(array_map($map, $result2));
 		$data = [
 			'events'=> [
