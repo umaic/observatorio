@@ -23,7 +23,7 @@ class Controller_Reports extends Controller {
 	public function action_getData()
 	{
 		$weekago = time() - (7 * 24 * 60 * 60);
-		return date('Y/m/d', $weekago);
+		$this->response->body(date('Y/m/d', $weekago));
 		$query = DB::select()->from('post')
 		->join(array('forms', 'form'))
 		->on('post.form_id', '=', 'form.id')
