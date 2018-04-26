@@ -30,7 +30,7 @@ class Controller_Reports extends Controller {
 		$result = $query->execute()->as_array();
 		$data = [];
 		foreach($result as $r){
-			array_push($data, 'Hola...');
+			array_push($data, $r['post_date']);
 			//$this->response->body('Hola...');
 			/*if($last_date == null)
 				$last_date = $r['post_date'];
