@@ -52,7 +52,7 @@ class Controller_Reports extends Controller {
 				}
 			}
 			//$this->array_sort_by_column($result, 'name');
-			uasort($result, function($a, $b) {
+			usort($result, function($a, $b) {
 				return strcmp($a['name'], $b['name']);
 			});
 			$count = 0;
