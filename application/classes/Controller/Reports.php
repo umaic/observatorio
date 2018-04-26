@@ -22,16 +22,15 @@ class Controller_Reports extends Controller {
 	 */
 	public function action_getData()
 	{
-		$weekago = time() - (7 * 24 * 60 * 60);
-		$this->response->body(date('Y/m/d', $weekago));
-		/*$query = DB::select()->from('posts')
+		$weekago = date('Y-m-d', time() - (7 * 24 * 60 * 60));
+		$query = DB::select()->from('posts')
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
-		->where('posts.post_date', '=', $_POST['email']);
-		$result = $query->execute();*/
+		->where('posts.post_date', '<=', $weekago);
+		$result = $query->execute();
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
-		//$this->response->body($result->count());
+		$this->response->body($result->count());
 	}
 }
