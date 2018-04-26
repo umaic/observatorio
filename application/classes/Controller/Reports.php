@@ -30,7 +30,7 @@ class Controller_Reports extends Controller {
 		->where('posts.post_date', '>=', $weekago)
 		->order_by('posts.post_date', 'DESC');
 		//Categories
-		$query2 = DB::select('tag.tag, form.name, posts.id as post_id, tag.id as tag_id')->from('posts')
+		$query2 = DB::select('tag.tag', 'form.name', 'posts.id')->from('posts')
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
 		->join(array('posts_tags', 'pt'))
