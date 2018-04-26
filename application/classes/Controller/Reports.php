@@ -32,8 +32,10 @@ class Controller_Reports extends Controller {
 		$totals = [];
 		$last_date = null;
 		$count = 0;
+		$data = [];
 		foreach($result as $r){
-			$this->response->body('Hola...');
+			array_push($data, 'Hola...');
+			//$this->response->body('Hola...');
 			/*if($last_date == null)
 				$last_date = $r['post_date'];
 			if($last_date == $r['post_date']){
@@ -49,7 +51,7 @@ class Controller_Reports extends Controller {
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
-		$this->response->headers('Content-Type', 'application/json; charset=utf-8');
+		//$this->response->headers('Content-Type', 'application/json; charset=utf-8');
 		$this->response->body(json_encode($data));
 	}
 }
