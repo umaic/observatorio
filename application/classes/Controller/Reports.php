@@ -51,24 +51,9 @@ class Controller_Reports extends Controller {
 					$last_date = $date;
 				}
 			}
+			$map = function($v) {return $v->name;};
+			$totals_type = array_count_values(array_map($map, $result));
 			//$this->array_sort_by_column($result, 'name');
-			usort($result, function($a, $b) {
-				return strcmp($a['name'], $b['name']);
-			});
-			$count = 0;
-			foreach($result as $r){
-				//Total By Forms
-				if($last_type == null)
-					$last_type = $r['name'];
-				if($last_type == $r['name']){
-					$count++;
-				}else{
-					array_push($totals_type, [$last_type => $count]);
-					$count = 1;
-					$last_type = $r['name'];
-				}
-				//array_push($totals_type, [$r['name'] => $count]);
-			}
 		}
 		$data = [
 			'events'=> [
