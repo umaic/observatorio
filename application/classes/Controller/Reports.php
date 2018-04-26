@@ -51,7 +51,7 @@ class Controller_Reports extends Controller {
 					$last_date = $date;
 				}
 			}
-			usort($result, 'compareOrder');
+			usort($result, $this->compareOrder);
 			foreach($result as $r){
 				//Total By Forms
 				if($last_type == null)
