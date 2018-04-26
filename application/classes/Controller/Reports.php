@@ -33,8 +33,7 @@ class Controller_Reports extends Controller {
 		$data = [];
 		$totals = [];
 		foreach($result as $r){
-			array_push($data, $date);
-			//$this->response->body('Hola...');
+			$date = substr($r['post_date'], 0, 10);
 			if($last_date == null)
 				$last_date = $date;
 			if($last_date == $date){
