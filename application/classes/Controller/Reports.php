@@ -32,18 +32,22 @@ class Controller_Reports extends Controller {
 		$count = 0;
 		$data = [];
 		$totals = [];
-		foreach($result as $r){
-			$date = substr($r['post_date'], 0, 10);
-			if($last_date == null)
-				$last_date = $date;
-			if($last_date == $date){
-				$count++;
-			}else{
-				array_push($totals, '{$last_date : $count}');
-				$count = 1;
-				$last_date = $date;
+		if(count($result) == 0){
+			array_push($totals, [$result[0]['post_date'] => 1]);
+		}else{
+			foreach($result as $r){
+				$date = substr($r['post_date'], 0, 10);
+				if($last_date == null)
+					$last_date = $date;
+				if($last_date == $date){
+					$count++;
+				}else{
+					array_push($totals, [$last_date => $count]);
+					$count = 1;
+					$last_date = $date;
+				}
+				array_push($totals, [$last_date => $count]);
 			}
-			array_push($totals, '{' . $last_date .' : '. $count.'}');
 		}
 
 		$this->response->headers('Access-Control-Allow-Origin', '*');
