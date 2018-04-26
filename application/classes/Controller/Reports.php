@@ -34,9 +34,9 @@ class Controller_Reports extends Controller {
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
 		->join(array('posts_tags', 'pt'))
-		->on('pt.post_id', '=', 'posts.id')
+		->on('pt.post_id', '=', 'posts.post_id')
 		->join(array('tags', 'tag'))
-		->on('tag.id', '=', 'pt.tag_id')
+		->on('tag.tag_id', '=', 'pt.tag_id')
 		->where('posts.post_date', '>=', $weekago)
 		->order_by('posts.post_date', 'DESC');
 		$result = $query->execute()->as_array();
