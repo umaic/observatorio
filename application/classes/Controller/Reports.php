@@ -34,6 +34,7 @@ class Controller_Reports extends Controller {
 		$totals = [];
 		foreach($result as $r){
 			$date = substr($r['post_date'], 0, 10);
+			$this->response->body(json_encode(['date' => $date]));
 			if($last_date == null)
 				$last_date = $date;
 			if($last_date == $date){
