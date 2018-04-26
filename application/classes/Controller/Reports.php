@@ -39,7 +39,7 @@ class Controller_Reports extends Controller {
 				$date = substr($r['post_date'], 0, 10);
 				if($last_date == null)
 					$last_date = $date;
-				if($last_date == $date){
+				if(strcmp($last_date, $date)){
 					$count++;
 				}else{
 					array_push($totals, [$last_date => $count]);
