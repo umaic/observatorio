@@ -51,7 +51,7 @@ class Controller_Reports extends Controller {
 					$last_date = $date;
 				}
 			}
-			$this->array_sort_by_column($result, 'name');
+			usort($result, 'compareOrder');
 			foreach($result as $r){
 				//Total By Forms
 				if($last_type == null)
@@ -79,13 +79,8 @@ class Controller_Reports extends Controller {
 		$this->response->body(json_encode($data));
 	}
 
-	function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
-		$sort_col = array();
-		foreach ($arr as $key=> $row) {
-			$sort_col[$key] = $row[$col];
-		}
-	
-		array_multisort($sort_col, $dir, $arr);
+	function compareOrder($a, $b){
+		return $a['name'] - $b['name'];
 	}
 
 }
