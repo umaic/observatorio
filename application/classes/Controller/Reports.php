@@ -51,7 +51,7 @@ class Controller_Reports extends Controller {
 					$last_date = $date;
 				}
 			}
-			$map = function($result) {return $result->name;};
+			$map = function($result) {return $result['name'];};
 			$totals_type = array_count_values(array_map($map, $result));
 			//$this->array_sort_by_column($result, 'name');
 		}
