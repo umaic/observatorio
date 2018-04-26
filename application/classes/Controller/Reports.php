@@ -33,7 +33,8 @@ class Controller_Reports extends Controller {
 		$last_date = null;
 		$count = 0;
 		foreach($result as $r){
-			if($last_date == null)
+			$this->response->body($r['post_date']);
+			/*if($last_date == null)
 				$last_date = $r['post_date'];
 			if($last_date == $r['post_date']){
 				$count++;
@@ -41,14 +42,14 @@ class Controller_Reports extends Controller {
 				array_push($totals, [$last_date => $count]);
 				$count = 1;
 				$last_date = $r['post_date'];
-			}
+			}*/
 		}
-		$data = array();
-		array_push($data, ['totals' => $totals]);
+		/*$data = array();
+		array_push($data, ['totals' => $totals]);*/
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
 		$this->response->headers('Content-Type', 'application/json; charset=utf-8');
-		$this->response->body(json_encode($data));
+		//$this->response->body(json_encode($data));
 	}
 }
