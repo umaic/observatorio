@@ -336,6 +336,12 @@ Route::set('validate-user', 'validate(/<email>)')
 		'controller' => 'Validation',
 	));
 
+Route::set('report-home', 'report')
+	->defaults(array(
+		'action'     => 'getData',
+		'controller' => 'Reports',
+	));
+
 /**
  * Default Route
  */
