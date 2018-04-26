@@ -34,7 +34,6 @@ class Controller_Reports extends Controller {
 		$totals = [];
 		foreach($result as $r){
 			$date = substr($r['post_date'], 0, 10);
-			array_push($totals, '{' . $last_date .' : '. $count.'}');
 			if($last_date == null)
 				$last_date = $date;
 			if($last_date == $date){
@@ -44,6 +43,7 @@ class Controller_Reports extends Controller {
 				$count = 1;
 				$last_date = $date;
 			}
+			array_push($totals, '{' . $last_date .' : '. $count.'}');
 		}
 
 		$this->response->headers('Access-Control-Allow-Origin', '*');
