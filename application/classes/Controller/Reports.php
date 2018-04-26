@@ -26,7 +26,8 @@ class Controller_Reports extends Controller {
 		$query = DB::select()->from('posts')
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
-		->where('posts.post_date', '>=', $weekago);
+		->where('posts.post_date', '>=', $weekago)
+		->order_by('posts.post_date', 'DESC');
 		$result = $query->execute()->as_array();
 		$last_date = null;
 		$count = 0;
