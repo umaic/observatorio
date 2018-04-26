@@ -56,9 +56,9 @@ class Controller_Reports extends Controller {
 				if(!isset($totals[$r['name']]))
 					$totals[$r['name']] = []; 
 				if(!isset($totals[$r['name']][$date]))
-					$totals[$r['name']][$date] = [0]; 
+					$totals[$r['name']][$date] = 0; 
 				
-				$totals[$r['name']][$date][0] += 1;
+				$totals[$r['name']][$date] += 1;
 				
 			}
 			$map = function($result) {return $result['name'];};
