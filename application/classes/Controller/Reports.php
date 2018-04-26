@@ -26,7 +26,7 @@ class Controller_Reports extends Controller {
 		$query = DB::select()->from('posts')
 		->join(array('forms', 'form'))
 		->on('posts.form_id', '=', 'form.id')
-		->where('posts.post_date', '<=', $weekago);
+		->where('posts.post_date', '>=', $weekago);
 		$result = $query->execute();
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
