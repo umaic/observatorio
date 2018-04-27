@@ -65,7 +65,7 @@ class Controller_Reports extends Controller {
 			foreach($totals_type as $key=>$value) {
 				foreach($result2 as $r2){
 					if($r2['name'] == $key){
-						$name = strtolower(str_replace(" ","_",$r['name']));
+						$name = strtolower(str_replace(" ","_",$key));
 						if(!isset($total_categories[$name]))
 							$total_categories[$name] = []; 
 						if(!isset($total_categories[$name][$r2['tag']]))
