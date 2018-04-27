@@ -79,7 +79,7 @@ class Controller_Reports extends Controller {
 			ksort($dates);
 			//usort($dates, function(){return strcmp($a->name, $b->name);});
 		}
-		$map = function($result2) {return $result2['tag'];};
+		//$map = function($result2) {return $result2['tag'];};
 		//$total_categories = array_count_values(array_map($map, $result2));
 		$data = [
 			'events'=> [
