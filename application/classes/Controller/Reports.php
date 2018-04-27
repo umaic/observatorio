@@ -60,6 +60,14 @@ class Controller_Reports extends Controller {
 					$totals[$name][$date] = 0; 
 				$totals[$name][$date] += 1;
 			}
+			foreach($result2 as $r2){
+				$name = strtolower(str_replace(" ","_",$r['name']));
+				if(!isset($total_categories[$name]))
+					$total_categories[$name] = []; 
+				if(!isset($totals[$name][$result2['tag']]))
+					$total_categories[$name][$result2['tag']] = 0; 
+				$total_categories[$name][$result2['tag']] += 1;
+			}
 			$map = function($result) {return $result['name'];};
 			$totals_type = array_count_values(array_map($map, $result));
 			$map = function($result) {return substr($result['post_date'], 0, 10);};
@@ -68,7 +76,7 @@ class Controller_Reports extends Controller {
 			//usort($dates, function(){return strcmp($a->name, $b->name);});
 		}
 		$map = function($result2) {return $result2['tag'];};
-		$total_categories = array_count_values(array_map($map, $result2));
+		//$total_categories = array_count_values(array_map($map, $result2));
 		$data = [
 			'events'=> [
 				'total_by_day' => $totals,
