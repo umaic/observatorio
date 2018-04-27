@@ -64,9 +64,9 @@ class Controller_Reports extends Controller {
 				$name = strtolower(str_replace(" ","_",$r['name']));
 				if(!isset($total_categories[$name]))
 					$total_categories[$name] = []; 
-				if(!isset($totals[$name][$result2['tag']]))
-					$total_categories[$name][$result2['tag']] = 0; 
-				$total_categories[$name][$result2['tag']] += 1;
+				if(!isset($totals[$name][$r2['tag']]))
+					$total_categories[$name][$r2['tag']] = 0; 
+				$total_categories[$name][$r2['tag']] += 1;
 			}
 			$map = function($result) {return $result['name'];};
 			$totals_type = array_count_values(array_map($map, $result));
