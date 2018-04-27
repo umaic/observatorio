@@ -42,7 +42,7 @@ class Controller_Reports extends Controller {
 		->where('posts.status', '=', 'published')
 		->order_by('posts.post_date', 'DESC');
 		//Totales
-		$query3 = DB::select('v.amount, vc.condition', 'veg.ethnic_group', 'vg.gender')
+		$query3 = DB::select('v.amount', 'vc.condition', 'veg.ethnic_group', 'vg.gender')
 		->from(array('victims', 'v'))
 		->join(array('posts_victims', 'pv'))
 		->on('pv.victim_id', '=', 'v.id')
