@@ -105,8 +105,8 @@ class Controller_Reports extends Controller {
 		$indigenas = 0;
 		foreach($victims_count as $v) {
 			$civils += $v['condition'] == 'civil' ? $v['amount'] : 0;
-			$afros += $v['condition'] == 'afro' ? $v['amount'] : 0;
-			$indigenas += $v['condition'] == 'indigena' ? $v['amount'] : 0;
+			$afros += $v['ethnic_group'] == 'afro' ? $v['amount'] : 0;
+			$indigenas += $v['ethnic_group'] == 'indigena' ? $v['amount'] : 0;
 			$menores += $v['ethnic_group'] == 'menores' ? $v['amount'] : 0;
 			$hombres += $v['gender'] == 'masculino' ? $v['amount'] : 0;
 			$mujeres += $v['gender'] == 'femenino' ? $v['amount'] : 0;
