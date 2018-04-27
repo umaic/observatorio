@@ -103,7 +103,7 @@ class Controller_Reports extends Controller {
 		$hombres = 0;
 		$mujeres = 0;
 		$indigenas = 0;
-		foreach($victims_count as $key) {
+		foreach($victims_count as $v) {
 			$civils += $v['condition'] == 'civil' ? 1 : 0;
 			$afros += $v['condition'] == 'afro' ? 1 : 0;
 			$indigenas += $v['condition'] == 'indigena' ? 1 : 0;
