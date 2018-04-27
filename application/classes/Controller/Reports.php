@@ -51,6 +51,8 @@ class Controller_Reports extends Controller {
 		if(count($result) == 0){
 			array_push($totals, [$result[0]['post_date'] => 1]);
 		}else{
+			$map = function($result) {return $result['name'];};
+			$totals_type = array_count_values(array_map($map, $result));
 			foreach($result as $r){
 				$date = substr($r['post_date'], 0, 10);
 				$name = strtolower(str_replace(" ","_",$r['name']));
@@ -60,9 +62,9 @@ class Controller_Reports extends Controller {
 					$totals[$name][$date] = 0; 
 				$totals[$name][$date] += 1;
 			}
-			foreach($result as $r){
+			foreach($totals_type as $key=>$value) {
 				foreach($result2 as $r2){
-					if($r['name'] == $r2['name']){
+					if($r2['name'] == $key){
 						$name = strtolower(str_replace(" ","_",$r['name']));
 						if(!isset($total_categories[$name]))
 							$total_categories[$name] = []; 
@@ -72,8 +74,6 @@ class Controller_Reports extends Controller {
 					}
 				}
 			}
-			$map = function($result) {return $result['name'];};
-			$totals_type = array_count_values(array_map($map, $result));
 			$map = function($result) {return substr($result['post_date'], 0, 10);};
 			$dates = array_count_values(array_map($map, $result));
 			ksort($dates);
