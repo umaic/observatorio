@@ -42,7 +42,7 @@ class Controller_Reports extends Controller {
 		->where('posts.status', '=', 'published')
 		->order_by('posts.post_date', 'DESC');
 		//Totales
-		$query3 = DB::select('vc.condition', 'veg.ethnic_group', 'vg.gender')
+		$query3 = DB::select('v.amount, vc.condition', 'veg.ethnic_group', 'vg.gender')
 		->from(array('victims', 'v'))
 		->join(array('posts_victims', 'pv'))
 		->on('pv.victim_id', '=', 'v.id')
@@ -104,12 +104,12 @@ class Controller_Reports extends Controller {
 		$mujeres = 0;
 		$indigenas = 0;
 		foreach($victims_count as $v) {
-			$civils += $v['condition'] == 'civil' ? 1 : 0;
-			$afros += $v['condition'] == 'afro' ? 1 : 0;
-			$indigenas += $v['condition'] == 'indigena' ? 1 : 0;
-			$menores += $v['ethnic_group'] == 'menores' ? 1 : 0;
-			$hombres += $v['gender'] == 'masculino' ? 1 : 0;
-			$mujeres += $v['gender'] == 'femenino' ? 1 : 0;
+			$civils += $v['condition'] == 'civil' ? $v['amount'] : 0;
+			$afros += $v['condition'] == 'afro' ? $v['amount'] : 0;
+			$indigenas += $v['condition'] == 'indigena' ? $v['amount'] : 0;
+			$menores += $v['ethnic_group'] == 'menores' ? $v['amount'] : 0;
+			$hombres += $v['gender'] == 'masculino' ? $v['amount'] : 0;
+			$mujeres += $v['gender'] == 'femenino' ? $v['amount'] : 0;
 		}
 		$totals_v = [
 			'civiles' => $civils,
