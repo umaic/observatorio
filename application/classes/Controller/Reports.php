@@ -112,8 +112,8 @@ class Controller_Reports extends Controller {
 			$hombres += $v['gender'] == 'masculino' ? 1 : 0;
 			$mujeres += $v['gender'] == 'femenino' ? 1 : 0;*/
 			if(!isset($totals_v[$key]))
-				$totals[$key] = 0;
-			$totals[$key] += 1; 
+				$totals_v[$key] = 0;
+			$totals_v[$key] += 1; 
 		}
 		$data = [
 			'events'=> [
