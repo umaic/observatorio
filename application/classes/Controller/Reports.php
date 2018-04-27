@@ -49,13 +49,13 @@ class Controller_Reports extends Controller {
 		->join(array('posts', 'p'))
 		->on('pv.post_id', '=', 'p.id')
 		->join(array('victim_condition', 'vc'))
-		->on('vc.id', '=', 'pv.id_condition')
+		->on('vc.id', '=', 'v.id_condition')
 		->join(array('victim_ethnic_group', 'veg'))
 		->on('veg.id', '=', 'v.id_ethnic_group')
 		->join(array('victim_gender', 'vg'))
 		->on('vg.id', '=', 'v.id_gender')
-		->where('posts.post_date', '>=', $weekago)
-		->where('posts.status', '=', 'published');
+		->where('p.post_date', '>=', $weekago)
+		->where('p.status', '=', 'published');
 
 		$result = $query->execute()->as_array();
 		$result2 = $query2->execute()->as_array();
