@@ -53,11 +53,12 @@ class Controller_Reports extends Controller {
 		}else{
 			foreach($result as $r){
 				$date = substr($r['post_date'], 0, 10);
-				if(!isset($totals[$r['name']]))
-					$totals[$r['name']] = []; 
-				if(!isset($totals[$r['name']][$date]))
-					$totals[$r['name']][$date] = 0; 
-				$totals[$r['name']][$date] += 1;
+				$name = strtolower(str_replace(" ","_",$r['name']));
+				if(!isset($totals[$name]))
+					$totals[$name] = []; 
+				if(!isset($totals[$name][$date]))
+					$totals[$name][$date] = 0; 
+				$totals[$name][$date] += 1;
 			}
 			$map = function($result) {return $result['name'];};
 			$totals_type = array_count_values(array_map($map, $result));
