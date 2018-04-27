@@ -41,8 +41,25 @@ class Controller_Reports extends Controller {
 		->where('posts.post_date', '>=', $weekago)
 		->where('posts.status', '=', 'published')
 		->order_by('posts.post_date', 'DESC');
+		//Totales
+		$query3 = DB::select('vc.condition, veg.ethnic_group, vg.gender')
+		->from(array('victims', 'v'))
+		->join(array('posts_victims', 'pv'))
+		->on('pv.victim_id', '=', 'v.id')
+		->join(array('posts', 'p'))
+		->on('pv.post_id', '=', 'p.id')
+		->join(array('victim_condition', 'vc'))
+		->on('vc.id', '=', 'pv.id_condition')
+		->join(array('victim_ethnic_group', 'veg'))
+		->on('veg.id', '=', 'v.id_ethnic_group')
+		->join(array('victim_gender', 'vg'))
+		->on('vg.id', '=', 'v.id_gender')
+		->where('posts.post_date', '>=', $weekago)
+		->where('posts.status', '=', 'published');
+
 		$result = $query->execute()->as_array();
 		$result2 = $query2->execute()->as_array();
+		$victims_count = $query3->execute()->as_array();
 		$last_date = null;
 		$last_type = null;
 		$count = 0;
@@ -79,16 +96,14 @@ class Controller_Reports extends Controller {
 			$map = function($result) {return substr($result['post_date'], 0, 10);};
 			$dates = array_count_values(array_map($map, $result));
 			ksort($dates);
-			//usort($dates, function(){return strcmp($a->name, $b->name);});
 		}
-		//$map = function($result2) {return $result2['tag'];};
-		//$total_categories = array_count_values(array_map($map, $result2));
 		$data = [
 			'events'=> [
 				'total_by_day' => $totals,
 				'total_by_type' => $totals_type,
 				'total_by_categories' => $total_categories,
-				'dates' => $dates
+				'dates' => $dates,
+				'victims_count' => $victims_count
 			]
 		];
 
