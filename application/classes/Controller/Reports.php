@@ -62,12 +62,14 @@ class Controller_Reports extends Controller {
 			}
 			foreach($result as $r){
 				foreach($result2 as $r2){
-					$name = strtolower(str_replace(" ","_",$r['name']));
-					if(!isset($total_categories[$name]))
-						$total_categories[$name] = []; 
-					if(!isset($totals[$name][$r2['tag']]))
-						$total_categories[$name][$r2['tag']] = 0; 
-					$total_categories[$name][$r2['tag']] += 1;
+					if($r['name'] == $r2['name']){
+						$name = strtolower(str_replace(" ","_",$r['name']));
+						if(!isset($total_categories[$name]))
+							$total_categories[$name] = []; 
+						if(!isset($totals[$name][$r2['tag']]))
+							$total_categories[$name][$r2['tag']] = 0; 
+						$total_categories[$name][$r2['tag']] += 1;
+					}
 				}
 			}
 			$map = function($result) {return $result['name'];};
