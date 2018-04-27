@@ -97,13 +97,31 @@ class Controller_Reports extends Controller {
 			$dates = array_count_values(array_map($map, $result));
 			ksort($dates);
 		}
+		$civils = 0;
+		$afros = 0;
+		$menores = 0;
+		$hombres = 0;
+		$mujeres = 0;
+		$indigenas = 0;
+		$totals_v = [];
+		foreach($victims_count as $key => $value) {
+			/*$civils += $v['condition'] == 'civil' ? 1 : 0;
+			$afros += $v['condition'] == 'afro' ? 1 : 0;
+			$indigenas += $v['condition'] == 'indigena' ? 1 : 0;
+			$menores += $v['ethnic_group'] == 'menores' ? 1 : 0;
+			$hombres += $v['gender'] == 'masculino' ? 1 : 0;
+			$mujeres += $v['gender'] == 'femenino' ? 1 : 0;*/
+			if(!isset($totals_v[$key]))
+				$totals[$key] = 0;
+			$totals[$key] += 1; 
+		}
 		$data = [
 			'events'=> [
 				'total_by_day' => $totals,
 				'total_by_type' => $totals_type,
 				'total_by_categories' => $total_categories,
 				'dates' => $dates,
-				'victims_count' => $victims_count
+				'victims_count' => $totals_v
 			]
 		];
 
