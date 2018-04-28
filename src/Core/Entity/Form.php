@@ -70,6 +70,6 @@ class Form extends StaticEntity
 	protected function getImmutable()
 	{
 		// Hack: Add computed properties to immutable list
-		return array_merge(parent::getImmutable(), ['tags', 'actors', 'sources', 'can_create']);
+		return array_merge(parent::getImmutable(), ['tags', 'can_create']);
 	}
 }
