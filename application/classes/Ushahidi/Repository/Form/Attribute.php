@@ -39,6 +39,7 @@ class Ushahidi_Repository_Form_Attribute extends Ushahidi_Repository implements
 	use Ushahidi_JsonTranscodeRepository;
 	use Ushahidi_FormsTagsTrait;
 	use Ushahidi_FormsActorsTrait;
+	use Ushahidi_FormsSourcesTrait;
 
 	protected $form_stage_repo;
 

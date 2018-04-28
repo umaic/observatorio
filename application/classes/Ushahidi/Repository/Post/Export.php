@@ -86,6 +86,16 @@ class Ushahidi_Repository_Post_Export extends Ushahidi_Repository_CSVPost implem
     return $names;
   }
 
+  public function retrieveSourceNames($source_ids) {
+    $tag_repo = service('repository.source');
+    $names = [];
+    foreach($source_ids as $source_id) {
+      $source = $source_repo->get($source_id);
+      array_push($names, $source->tag);
+    }
+    return $names;
+  }
+
   public function retrieveSetNames($set_ids) {
     $set_repo = service('repository.set');
     $names = [];

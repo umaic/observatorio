@@ -48,4 +48,15 @@ class Ushahidi_Formatter_Form extends Ushahidi_Formatter_API
 
 		return $output;
 	}
+
+	protected function format_sources($sources)
+	{
+		$output = [];
+		foreach ($sources as $sourceid)
+		{
+			$output[] = $this->get_relation('sources', $sourceid);
+		}
+
+		return $output;
+	}
 }

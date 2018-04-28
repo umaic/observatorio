@@ -144,6 +144,7 @@ $di->params['Ushahidi\Factory\AuthorizerFactory']['map'] = [
 	'form_stages'          => $di->lazyGet('authorizer.form_stage'),
 	'tags'                 => $di->lazyGet('authorizer.tag'),
 	'actors'               => $di->lazyGet('authorizer.actor'),
+	'sources'              => $di->lazyGet('authorizer.source'),
 	'layers'               => $di->lazyGet('authorizer.layer'),
 	'media'                => $di->lazyGet('authorizer.media'),
 	'messages'             => $di->lazyGet('authorizer.message'),
@@ -151,6 +152,7 @@ $di->params['Ushahidi\Factory\AuthorizerFactory']['map'] = [
 	'posts_lock'           => $di->lazyGet('authorizer.post_lock'),
 	'tags'                 => $di->lazyGet('authorizer.tag'),
 	'actors'               => $di->lazyGet('authorizer.actor'),
+	'sources'              => $di->lazyGet('authorizer.source'),
 	'sets'                 => $di->lazyGet('authorizer.set'),
 	'sets_posts'           => $di->lazyGet('authorizer.post'),
 	'savedsearches'        => $di->lazyGet('authorizer.savedsearch'),
@@ -185,6 +187,7 @@ $di->params['Ushahidi\Factory\RepositoryFactory']['map'] = [
 	'posts_lock'           => $di->lazyGet('repository.post_lock'),
 	'tags'                 => $di->lazyGet('repository.tag'),
 	'actors'               => $di->lazyGet('repository.actor'),
+	'sources'              => $di->lazyGet('repository.source'),
 	'sets'                 => $di->lazyGet('repository.set'),
 	'sets_posts'           => $di->lazyGet('repository.post'),
 	'savedsearches'        => $di->lazyGet('repository.savedsearch'),
@@ -447,6 +450,7 @@ $di->set('authorizer.media', $di->lazyNew('Ushahidi\Core\Tool\Authorizer\MediaAu
 $di->set('authorizer.message', $di->lazyNew('Ushahidi\Core\Tool\Authorizer\MessageAuthorizer'));
 $di->set('authorizer.tag', $di->lazyNew('Ushahidi\Core\Tool\Authorizer\TagAuthorizer'));
 $di->set('authorizer.actor', $di->lazyNew('Ushahidi\Core\Tool\Authorizer\ActorAuthorizer'));
+$di->set('authorizer.source', $di->lazyNew('Ushahidi\Core\Tool\Authorizer\SourceAuthorizer'));
 $di->set('authorizer.savedsearch', $di->lazyNew('Ushahidi\Core\Tool\Authorizer\SetAuthorizer'));
 $di->set('authorizer.set', $di->lazyNew('Ushahidi\Core\Tool\Authorizer\SetAuthorizer'));
 $di->set('authorizer.notification', $di->lazyNew('Ushahidi\Core\Tool\Authorizer\NotificationAuthorizer'));

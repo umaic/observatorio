@@ -137,6 +137,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 				// Continued for legacy
 				'tags'   => $this->getTagsForPost($data['id'], $data['form_id']),
 				'actors'   => $this->getActorsForPost($data['id'], $data['form_id']),
+				'sources'   => $this->getSourcesForPost($data['id'], $data['form_id']),
 				'sets' => $this->getSetsForPost($data['id']),
 				'completed_stages' => $this->getCompletedStagesForPost($data['id']),
 				'lock' => NULL,
@@ -244,13 +245,13 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			'created_before', 'created_after',
 			'updated_before', 'updated_after',
 			'date_before', 'date_after',
-			'bbox', 'tags', 'actors', 'values',
+			'bbox', 'tags', 'actors', 'sources','values',
 			'center_point', 'within_km',
 			'published_to', 'source',
 			'post_id', // Search for just a single post id to check if it matches search criteria
 			'include_types', 'include_attributes', // Specify values to include
 			'include_unmapped',
-			'group_by', 'group_by_tags', 'group_by_actors', 'group_by_attribute_key', // Group results
+			'group_by', 'group_by_tags', 'group_by_sources', 'group_by_attribute_key', // Group results
 			'timeline', 'timeline_interval', 'timeline_attribute', // Timeline params
 			'has_location' //contains a location or not
 		];
@@ -891,6 +892,22 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 		return $result->as_array(NULL, 'actor_id');
 	}
 
+	/**
+	 * Get sources for a post
+	 * @param  int   $id  post id
+	 * @return array      source ids for post
+	 */
+	private function getSourcesForPost($id, $form_id)
+	{
+		list($attr_id, $attr_key) = $this->getFirstSourceAttr($form_id);
+
+		$result = DB::select('source_id')->from('posts_sources')
+			->where('post_id', '=', $id)
+			->where('form_attribute_id', '=', $attr_id)
+			->execute($this->db);
+		return $result->as_array(NULL, 'source_id');
+	}
+
   /**
 	 * Get sets for a post
 	 * @param  int   $id  post id
@@ -943,7 +960,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 		$post['created'] = time();
 
 		// Remove attribute values and tags
-		unset($post['values'], $post['tags'], $post['actors'], $post['completed_stages'], $post['sets'], $post['source'], $post['color'], $post['lock']);
+		unset($post['values'], $post['tags'], $post['actors'], $post['sources'], $post['completed_stages'], $post['sets'], $post['source'], $post['color'], $post['lock']);
 
 		// Set default value for post_date
 		if (empty($post['post_date'])) {
@@ -981,6 +998,18 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			}
 		}
 
+		// Handle legacy post.sources attribute
+		if ($entity->sources)
+		{
+			// Find first source attribute
+			list($attr_id, $attr_key) = $this->getFirstSourceAttr($entity->form_id);
+
+			// If we don't have sources in the values, use the post.sources value
+			if ($attr_key && !isset($values[$attr_key])) {
+				$values[$attr_key] = $entity->sources;
+			}
+		}
+
 		if ($entity->values)
 		{
 			// Update post-values
@@ -1008,7 +1037,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 		$post['updated'] = time();
 
 		// Remove attribute values and tags
-		unset($post['values'], $post['tags'], $post['actors'], $post['completed_stages'], $post['sets'], $post['source'], $post['color'], $post['lock']);
+		unset($post['values'], $post['tags'], $post['actors'], $post['sources'], $post['completed_stages'], $post['sets'], $post['source'], $post['color'], $post['lock']);
 
 		// Convert post_date to mysql format
 		if(!empty($post['post_date'])) {
@@ -1038,6 +1067,17 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			// If we don't have actors in the values, use the post.actors value
 			if ($attr_key && !isset($values[$attr_key])) {
 				$values[$attr_key] = $entity->actors;
+			}
+		}
+
+		// Handle legacy post.sources attribute
+		if ($entity->hasChanged('sources'))
+		{
+			// Find first source attribute
+			list($attr_id, $attr_key) = $this->getFirstSourceAttr($entity->form_id);
+			// If we don't have sources in the values, use the post.sources value
+			if ($attr_key && !isset($values[$attr_key])) {
+				$values[$attr_key] = $entity->sources;
 			}
 		}
 
@@ -1073,7 +1113,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 		$post = $entity->getChanged();
 		$post['updated'] = time();
 		// Remove attribute values and tags
-		unset($post['values'], $post['tags'], $post['actors'], $post['completed_stages'], $post['sets'], $post['source'], $post['color']);
+		unset($post['values'], $post['tags'], $post['actors'], $post['sources'], $post['completed_stages'], $post['sets'], $post['source'], $post['color']);
 		// Convert post_date to mysql format
 		if(!empty($post['post_date'])) {
 			$post['post_date'] = $post['post_date']->format("Y-m-d H:i:s");
@@ -1100,7 +1140,17 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 				$values[$attr_key] = $entity->actors;
 			}
 		}
-		if ($entity->hasChanged('values') || $entity->hasChanged('tags') || $entity->hasChanged('actors'))
+		// Handle legacy post.sources attribute
+		if ($entity->hasChanged('sources'))
+		{
+			// Find first source attribute
+			list($attr_id, $attr_key) = $this->getFirstSourceAttr($entity->form_id);
+			// If we don't have sources in the values, use the post.sources value
+			if ($attr_key && !isset($values[$attr_key])) {
+				$values[$attr_key] = $entity->sources;
+			}
+		}
+		if ($entity->hasChanged('values') || $entity->hasChanged('tags') || $entity->hasChanged('actors') || $entity->hasChanged('sources'))
 		{
 			// Update post-values
 			$this->updatePostValues($entity->id, $values);
@@ -1165,6 +1215,20 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			->join('form_stages', 'INNER')->on('form_stages.id', '=', 'form_attributes.form_stage_id')
 			->where('form_stages.form_id', '=', $form_id)
 			->where('form_attributes.type', '=', 'actors')
+			->order_by('form_attributes.priority', 'ASC')
+			->limit(1)
+			->execute($this->db);
+
+		return [$result->get('id'), $result->get('key')];
+	}
+
+	public function getFirstSourceAttr($form_id)
+	{
+		$result = DB::select('form_attributes.id', 'form_attributes.key')
+			->from('form_attributes')
+			->join('form_stages', 'INNER')->on('form_stages.id', '=', 'form_attributes.form_stage_id')
+			->where('form_stages.form_id', '=', $form_id)
+			->where('form_attributes.type', '=', 'sources')
 			->order_by('form_attributes.priority', 'ASC')
 			->limit(1)
 			->execute($this->db);

@@ -91,6 +91,17 @@ class Ushahidi_Formatter_Post extends Ushahidi_Formatter_API
 		return $output;
 	}
 
+	protected function format_sources($sources)
+	{
+		$output = [];
+		foreach ($sources as $sourceid)
+		{
+			$output[] = $this->get_relation('sources', $sourceid);
+		}
+
+		return $output;
+	}
+
 	protected function format_post_date($value)
 	{
 		return $value ? $value->format(DateTime::W3C) : NULL;

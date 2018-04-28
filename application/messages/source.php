@@ -2,9 +2,9 @@
 
 return array(
 	'isSlugAvailable' => ':field :value is already in use',
-	'isRoleValid' => 'Role must match the parent actor',
-	'actor.role.isRoleValid' => 'Role must match the parent actor',
+	'isRoleValid' => 'Role must match the parent source',
+	'source.role.isRoleValid' => 'Role must match the parent source',
 	'description.regex' => 'The description must contain only letters, numbers, spaces and punctuation',
-	'actor.regex' => 'The actor name must contain only letters, numbers, spaces and punctuation',
+	'source.regex' => 'The source name must contain only letters, numbers, spaces and punctuation',
 );
 

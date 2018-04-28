@@ -22,6 +22,7 @@ class Ushahidi_Repository_Form extends Ushahidi_Repository implements
 {
     use Ushahidi_FormsTagsTrait;
     use Ushahidi_FormsActorsTrait;
+    use Ushahidi_FormsSourcesTrait;
 
     // Use Event trait to trigger events
     use Event;
@@ -41,7 +42,8 @@ class Ushahidi_Repository_Form extends Ushahidi_Repository implements
             $data = $data + [
                 'can_create' => $can_create['roles'],
                 'tags' => $this->getTagsForForm($data['id']),
-                'actors' => $this->getActorsForForm($data['id'])
+                'actors' => $this->getActorsForForm($data['id']),
+                'sources' => $this->getSourcesForForm($data['id'])
             ];
         }
         return new Form($data);
@@ -86,9 +88,10 @@ class Ushahidi_Repository_Form extends Ushahidi_Repository implements
         }
         $form = $entity->getChanged();
         $form['updated'] = time();
-        // removing tags and actors from form before saving
+        // removing tags, actors and sources from form before saving
         unset($form['tags']);
         unset($form['actors']);
+        unset($form['sources']);
         // Finally save the form
         $id = $this->executeUpdate(['id'=>$entity->id], $form);
 

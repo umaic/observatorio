@@ -30,6 +30,7 @@ class Form extends StaticEntity
 	protected $can_create;
 	protected $tags;
 	protected $actors;
+	protected $sources;
 
 	// DataTransformer
 	protected function getDefinition()
@@ -55,6 +56,7 @@ class Form extends StaticEntity
 			'can_create'            => 'array',
 			'tags'        => 'array',
 			'actors'        => 'array',
+			'sources'        => 'sources',
 		];
 	}
 
@@ -68,6 +70,6 @@ class Form extends StaticEntity
 	protected function getImmutable()
 	{
 		// Hack: Add computed properties to immutable list
-		return array_merge(parent::getImmutable(), ['tags', 'can_create']);
+		return array_merge(parent::getImmutable(), ['tags', 'actors', 'sources', 'can_create']);
 	}
 }
