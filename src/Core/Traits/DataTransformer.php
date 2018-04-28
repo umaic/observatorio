@@ -189,7 +189,6 @@ trait DataTransformer
 	protected function transform(array $data)
 	{
 		$definition = $this->getDefinition();
-		print_r($definition);exit;
 		foreach ($data as $key => $val) {
 			if (!isset($definition[$key])) {
 				continue;

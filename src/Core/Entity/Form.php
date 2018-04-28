@@ -56,7 +56,7 @@ class Form extends StaticEntity
 			'can_create'            => 'array',
 			'tags'        => 'array',
 			'actors'        => 'array',
-			'sources'        => 'sources',
+			'sources'        => 'array',
 		];
 	}
 

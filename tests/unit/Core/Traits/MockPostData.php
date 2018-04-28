@@ -80,6 +80,8 @@ class MockPostData
 			'locale'          => '*lowercasestring',
 			'values'          => 'array',
 			'tags'            => 'array',
+			'actors'          => 'array',
+			'sources'         => 'array',
 			'published_to'    => '*json',
 			'completed_stages'=> 'array',
 			'sets'            => 'array',
