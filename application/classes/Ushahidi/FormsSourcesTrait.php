@@ -9,10 +9,10 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero General Public License Version 3 (AGPL3)
 */
 
-trait Ushahidi_FormsSourceTrait
+trait Ushahidi_FormsSourcesTrait
 {
     //returning sources for a specific Form-id
-    private function getSourceForForm($id)
+    private function getSourcesForForm($id)
     {
         $attributes = DB::select('form_attributes.options')
             ->from('form_attributes')
