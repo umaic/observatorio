@@ -209,7 +209,7 @@ trait DataTransformer
 					$data[$key] = static::$func($data[$key]);
 				} else {
 					// Cast the value to the specified type.
-					print_r($data[$key]);exit;
+					print_r($data[$key]);
 					settype($data[$key], $definition[$key]);
 				}
 			}
