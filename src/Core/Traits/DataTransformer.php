@@ -190,6 +190,7 @@ trait DataTransformer
 	{
 		$definition = $this->getDefinition();
 		foreach ($data as $key => $val) {
+			print_r($val);
 			if (!isset($definition[$key])) {
 				continue;
 			}
@@ -209,7 +210,6 @@ trait DataTransformer
 					$data[$key] = static::$func($data[$key]);
 				} else {
 					// Cast the value to the specified type.
-					print_r($data[$key]);
 					settype($data[$key], $definition[$key]);
 				}
 			}
