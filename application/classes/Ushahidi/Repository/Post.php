@@ -984,11 +984,11 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
             $insert = DB::insert('post_source_detail', ['post_id', 'source_id', 'event_desc', 'url', 'event_date']);
             foreach ($values['sources_set'] as $key => $src_post) {
                 $insert->values([
-                    $id,
+                    $entity->id,
                     $src_post['source_id'],
-                    $src_post['desc'],
+                    $src_post['event_desc'],
                     $src_post['url'],
-                    substr($src_post['date'], 0, 10)
+                    substr($src_post['event_date'], 0, 10)
                 ]);
             }
             $insert->execute($this->db);
@@ -1072,7 +1072,9 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
         }
 
         //ToDo: BORRAR LOS ACTORES DEL POST_ID
-        if ($values['actor_category']) {
+        if (isset($values['actor_category'])) {
+            $delete = DB::delete('post_tag_actor')->where('post_id', 'IN', [$entity->id]);
+            $delete->execute($this->db);
             $insert = DB::insert('post_tag_actor', ['post_id', 'tag_id', 'actor_id']);
             $run_insert = false;
             foreach ($values['actor_category'] as $key => $act_cat) {
@@ -1093,19 +1095,19 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
         }
 
         //ToDo: falta probar
-        if ($values['sources_set'] && count($values['sources_set']) > 0) {
-            
+        if (isset($values['sources_set']) && count($values['sources_set']) > 0) {
+
             $delete = DB::delete('post_source_detail')->where('post_id', 'IN', [$entity->id]);
             $delete->execute($this->db);
 
-            $insert = DB::insert('post_source_detail', ['post_id', 'source_id', 'event_desc', 'link', 'event_date']);
+            $insert = DB::insert('post_source_detail', ['post_id', 'source_id', 'event_desc', 'url', 'event_date']);
             foreach ($values['sources_set'] as $key => $src_post) {
                 $insert->values([
                     $entity->id,
                     $src_post['source_id'],
-                    $src_post['desc'],
+                    $src_post['event_desc'],
                     $src_post['url'],
-                    substr($src_post['date'], 0, 10)
+                    substr($src_post['event_date'], 0, 10)
                 ]);
             }
             $insert->execute($this->db);
