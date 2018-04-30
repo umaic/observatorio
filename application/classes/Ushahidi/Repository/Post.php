@@ -981,11 +981,11 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
         }
 
         if ($values['sources_set'] && count($values['sources_set']) > 0) {
-            $insert = DB::insert('post_source_detail', ['post_id', 'source_id', 'event_desc', 'link', 'event_date']);
+            $insert = DB::insert('post_source_detail', ['post_id', 'source_id', 'event_desc', 'url', 'event_date']);
             foreach ($values['sources_set'] as $key => $src_post) {
                 $insert->values([
                     $id,
-                    $src_post['selected']['id'],
+                    $src_post['source_id'],
                     $src_post['desc'],
                     $src_post['url'],
                     substr($src_post['date'], 0, 10)
