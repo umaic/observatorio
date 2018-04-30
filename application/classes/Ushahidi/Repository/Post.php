@@ -1071,6 +1071,42 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
             }
         }
 
+        //ToDo: BORRAR LOS ACTORES DEL POST_ID
+        if ($values['actor_category']) {
+            $insert = DB::insert('post_tag_actor', ['post_id', 'tag_id', 'actor_id']);
+            $run_insert = false;
+            foreach ($values['actor_category'] as $key => $act_cat) {
+                if (count($act_cat['actors']) > 0) {
+                    $run_insert = true;
+                }
+                foreach ($act_cat['actors'] as $k => $val) {
+                    $insert->values([
+                        $entity->id,
+                        $act_cat['category'],
+                        $val
+                    ]);
+                }
+            }
+            if ($run_insert) {
+                $insert->execute($this->db);
+            }
+        }
+
+        //ToDo: BORRAR LOS SOURCES DEL POST_ID
+        if ($values['sources_set'] && count($values['sources_set']) > 0) {
+            $insert = DB::insert('post_source_detail', ['post_id', 'source_id', 'event_desc', 'link', 'event_date']);
+            foreach ($values['sources_set'] as $key => $src_post) {
+                $insert->values([
+                    $entity->id,
+                    $src_post['selected']['id'],
+                    $src_post['desc'],
+                    $src_post['url'],
+                    substr($src_post['date'], 0, 10)
+                ]);
+            }
+            $insert->execute($this->db);
+        }
+
         if ($entity->hasChanged('values')) {
             // Update post-values
             $this->post_value_factory->proxy()->deleteAllForPost($entity->id);
