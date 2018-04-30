@@ -1092,13 +1092,17 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
             }
         }
 
-        //ToDo: BORRAR LOS SOURCES DEL POST_ID
+        //ToDo: falta probar
         if ($values['sources_set'] && count($values['sources_set']) > 0) {
+            
+            $delete = DB::delete('post_source_detail')->where('post_id', 'IN', [$entity->id]);
+            $delete->execute($this->db);
+
             $insert = DB::insert('post_source_detail', ['post_id', 'source_id', 'event_desc', 'link', 'event_date']);
             foreach ($values['sources_set'] as $key => $src_post) {
                 $insert->values([
                     $entity->id,
-                    $src_post['selected']['id'],
+                    $src_post['source_id'],
                     $src_post['desc'],
                     $src_post['url'],
                     substr($src_post['date'], 0, 10)
