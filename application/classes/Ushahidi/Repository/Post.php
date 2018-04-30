@@ -213,6 +213,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
         }
         $output['actor_category'] = $this->getActorsCatForPost($id);
         $output['sources_set'] = $this->getSourcesListForPost($id);
+        $output['victim_category'] = $this->getVictimCatForPost($id);
         return $output;
     }
 
@@ -834,6 +835,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
             ->execute($this->db);
         return $result->as_array(NULL, 'actor_id');
     }
+
     /**
      * Get actors for a post
      * @param  int $id post id
@@ -842,6 +844,19 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
     private function getActorsCatForPost($id)
     {
         $result = DB::select('*')->from('post_tag_actor')
+            ->where('post_id', '=', $id)
+            ->execute($this->db);
+        return $result->as_array();
+    }
+
+    /**
+     * Get actors for a post
+     * @param  int $id post id
+     * @return array      actor ids for post
+     */
+    private function getVictimCatForPost($id)
+    {
+        $result = DB::select('*')->from('victims')
             ->where('post_id', '=', $id)
             ->execute($this->db);
         return $result->as_array();
@@ -960,7 +975,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
             }
         }// Handle legacy post.actor_category attribute
 
-        if ($values['actor_category']) {
+        if (isset($values['actor_category'])) {
             $insert = DB::insert('post_tag_actor', ['post_id', 'tag_id', 'actor_id']);
             $run_insert = false;
             foreach ($values['actor_category'] as $key => $act_cat) {
@@ -980,11 +995,42 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
             }
         }
 
-        if ($values['sources_set'] && count($values['sources_set']) > 0) {
+        if (isset($values['victim_category'])) {
+            $insert = DB::insert('victims', ['post_id', 'amount', 'id_gender', 'id_ethnic_group'
+                , 'id_sub_ethnic_group', 'id_condition', 'id_sub_condition', 'id_occupation', 'id_age_group', 'id_age'
+                , 'id_status', 'tag_id']);
+            $run_insert = false;
+            foreach ($values['victim_category'] as $key => $vic_cat) {
+                if (count($vic_cat['victims']) > 0) {
+                    $run_insert = true;
+                }
+                foreach ($vic_cat['victims'] as $k => $val) {
+                    $insert->values([
+                        $id,
+                        $val['amount'],
+                        $val['victim_gender'],
+                        $val['victim_ethnic_group'],
+                        $val['victim_sub_ethnic_group'],
+                        $val['victim_condition'],
+                        $val['victim_sub_condition'],
+                        $val['victim_occupation'],
+                        $val['victim_age_group'],
+                        $val['victim_age'],
+                        $val['victim_status'],
+                        $vic_cat['category'],
+                    ]);
+                }
+            }
+            if ($run_insert) {
+                $insert->execute($this->db);
+            }
+        }
+
+        if (isset($values['sources_set']) && count($values['sources_set']) > 0) {
             $insert = DB::insert('post_source_detail', ['post_id', 'source_id', 'event_desc', 'url', 'event_date']);
             foreach ($values['sources_set'] as $key => $src_post) {
                 $insert->values([
-                    $entity->id,
+                    $id,
                     $src_post['source_id'],
                     $src_post['event_desc'],
                     $src_post['url'],
@@ -1086,6 +1132,39 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
                         $entity->id,
                         $act_cat['category'],
                         $val
+                    ]);
+                }
+            }
+            if ($run_insert) {
+                $insert->execute($this->db);
+            }
+        }
+
+        if (isset($values['victim_category'])) {
+            $delete = DB::delete('victims')->where('post_id', 'IN', [$entity->id]);
+            $delete->execute($this->db);
+            $insert = DB::insert('victims', ['post_id', 'amount', 'id_gender', 'id_ethnic_group'
+                , 'id_sub_ethnic_group', 'id_condition', 'id_sub_condition', 'id_occupation', 'id_age_group', 'id_age'
+                , 'id_status', 'tag_id']);
+            $run_insert = false;
+            foreach ($values['victim_category'] as $key => $vic_cat) {
+                if (count($vic_cat['victims']) > 0) {
+                    $run_insert = true;
+                }
+                foreach ($vic_cat['victims'] as $k => $val) {
+                    $insert->values([
+                        $entity->id,
+                        $val['amount'],
+                        $val['victim_gender'],
+                        $val['victim_ethnic_group'],
+                        $val['victim_sub_ethnic_group'],
+                        $val['victim_condition'],
+                        $val['victim_sub_condition'],
+                        $val['victim_occupation'],
+                        $val['victim_age_group'],
+                        $val['victim_age'],
+                        $val['victim_status'],
+                        $vic_cat['category'],
                     ]);
                 }
             }
@@ -1204,7 +1283,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
     protected function updatePostValues($post_id, $attributes)
     {
         foreach ($attributes as $key => $values) {
-            if ($key !== 'actor_category' && $key !== 'sources_set') {
+            if ($key !== 'actor_category' && $key !== 'sources_set' && $key !== 'victim_category') {
                 $attribute = $this->form_attribute_repo->getByKey($key);
                 if (!$attribute->id) {
                     continue;
