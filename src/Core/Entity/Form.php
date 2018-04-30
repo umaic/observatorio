@@ -57,6 +57,7 @@ class Form extends StaticEntity
 			'tags'        => 'array',
 			'actors'        => 'array',
 			'sources'        => 'array',
+			'actor_category'        => 'array',
 		];
 	}
 

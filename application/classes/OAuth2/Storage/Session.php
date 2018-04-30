@@ -362,7 +362,6 @@ class OAuth2_Storage_Session extends OAuth2_Storage implements SessionInterface
 	 */
 	public function associateAuthCodeScope($authCodeId, $scopeId)
 	{
-		print_r($scopeId);
 		$data = array(
 			'oauth_session_authcode_id' => $authCodeId,
 			'scope_id'                  => $scopeId,

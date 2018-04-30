@@ -94,6 +94,7 @@ class Post extends StaticEntity
 			'values'          => 'array',
 			'tags'            => 'array',
 			'actors'            => 'array',
+			'actorscat'            => 'array',
 			'sources'            => 'array',
 			'published_to'    => '*json',
 			'completed_stages'=> '*arrayInt',

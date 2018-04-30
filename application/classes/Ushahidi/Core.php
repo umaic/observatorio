@@ -753,7 +753,7 @@ abstract class Ushahidi_Core {
 
 		$di->set('validator.post.sources', $di->lazyNew('Ushahidi_Validator_Post_Sources'));
 		$di->params['Ushahidi_Validator_Post_Sources'] = [
-			'source_repo' => $di->lazyGet('repository.source')
+			'sources_repo' => $di->lazyGet('repository.source')
 		];
 
 
