@@ -95,6 +95,7 @@ class Controller_Reports extends Controller {
 		$last_type = null;
 		$count = 0;
 		$data = [];
+		$dates= [];
 		$totals = [];
 		$totals_type = [];
 		$total_categories = [];
