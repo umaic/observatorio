@@ -62,7 +62,7 @@ class Controller_Reports extends Controller {
 			$query = DB::select('posts.post_date', 'form.name')->from('posts')
 			->join(array('forms', 'form'))
 			->on('posts.form_id', '=', 'form.id')
-			->where('posts.id', 'in', $ids)
+			->where('posts.id_', 'in', $ids)
 			->order_by('posts.post_date', 'DESC');
 			//Categories
 			$query2 = DB::select('tag.tag', 'form.name', 'posts.id')->from('posts')
