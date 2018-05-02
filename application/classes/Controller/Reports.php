@@ -27,37 +27,72 @@ class Controller_Reports extends Controller {
 			$ids = $_POST['ids'].explode(",");
 		$weekago = date('Y-m-d', time() - (7 * 24 * 60 * 60));
 		//General
-		$query = DB::select('posts.post_date', 'form.name')->from('posts')
-		->join(array('forms', 'form'))
-		->on('posts.form_id', '=', 'form.id')
-		->where('posts.post_date', '>=', $weekago)
-		->where('posts.status', '=', 'published')
-		count($ids) > 0 ? ->whereIn('eventos_etiquetas.id_etiqueta', $intereses) ->->order_by('posts.post_date', 'DESC') : ->order_by('posts.post_date', 'DESC');
-		//->order_by('posts.post_date', 'DESC');
-		//Categories
-		$query2 = DB::select('tag.tag', 'form.name', 'posts.id')->from('posts')
-		->join(array('forms', 'form'))
-		->on('posts.form_id', '=', 'form.id')
-		->join(array('posts_tags', 'pt'))
-		->on('pt.post_id', '=', 'posts.id')
-		->join(array('tags', 'tag'))
-		->on('tag.id', '=', 'pt.tag_id')
-		->where('posts.post_date', '>=', $weekago)
-		->where('posts.status', '=', 'published')
-		->order_by('posts.post_date', 'DESC');
-		//Totales
-		$query3 = DB::select('v.amount', 'vc.condition', 'veg.ethnic_group', 'vg.gender')
-		->from(array('victims', 'v'))
-		->join(array('posts', 'p'))
-		->on('v.post_id', '=', 'p.id')
-		->join(array('victim_condition', 'vc'))
-		->on('vc.id', '=', 'v.id_condition')
-		->join(array('victim_ethnic_group', 'veg'))
-		->on('veg.id', '=', 'v.id_ethnic_group')
-		->join(array('victim_gender', 'vg'))
-		->on('vg.id', '=', 'v.id_gender')
-		->where('p.post_date', '>=', $weekago)
-		->where('p.status', '=', 'published');
+		if(count($ids)  == 0){
+			$query = DB::select('posts.post_date', 'form.name')->from('posts')
+			->join(array('forms', 'form'))
+			->on('posts.form_id', '=', 'form.id')
+			->where('posts.post_date', '>=', $weekago)
+			->where('posts.status', '=', 'published')
+			->order_by('posts.post_date', 'DESC');
+			//Categories
+			$query2 = DB::select('tag.tag', 'form.name', 'posts.id')->from('posts')
+			->join(array('forms', 'form'))
+			->on('posts.form_id', '=', 'form.id')
+			->join(array('posts_tags', 'pt'))
+			->on('pt.post_id', '=', 'posts.id')
+			->join(array('tags', 'tag'))
+			->on('tag.id', '=', 'pt.tag_id')
+			->where('posts.post_date', '>=', $weekago)
+			->where('posts.status', '=', 'published')
+			->order_by('posts.post_date', 'DESC');
+			//Totales
+			$query3 = DB::select('v.amount', 'vc.condition', 'veg.ethnic_group', 'vg.gender')
+			->from(array('victims', 'v'))
+			->join(array('posts', 'p'))
+			->on('v.post_id', '=', 'p.id')
+			->join(array('victim_condition', 'vc'))
+			->on('vc.id', '=', 'v.id_condition')
+			->join(array('victim_ethnic_group', 'veg'))
+			->on('veg.id', '=', 'v.id_ethnic_group')
+			->join(array('victim_gender', 'vg'))
+			->on('vg.id', '=', 'v.id_gender')
+			->where('p.post_date', '>=', $weekago)
+			->where('p.status', '=', 'published');
+		}else{
+			$query = DB::select('posts.post_date', 'form.name')->from('posts')
+			->join(array('forms', 'form'))
+			->on('posts.form_id', '=', 'form.id')
+			->where('posts.post_date', '>=', $weekago)
+			->where('posts.status', '=', 'published')
+			->whereIn('posts.id', $ids)
+			->order_by('posts.post_date', 'DESC');
+			//Categories
+			$query2 = DB::select('tag.tag', 'form.name', 'posts.id')->from('posts')
+			->join(array('forms', 'form'))
+			->on('posts.form_id', '=', 'form.id')
+			->join(array('posts_tags', 'pt'))
+			->on('pt.post_id', '=', 'posts.id')
+			->join(array('tags', 'tag'))
+			->on('tag.id', '=', 'pt.tag_id')
+			->where('posts.post_date', '>=', $weekago)
+			->where('posts.status', '=', 'published')
+			->whereIn('posts.id', $ids)
+			->order_by('posts.post_date', 'DESC');
+			//Totales
+			$query3 = DB::select('v.amount', 'vc.condition', 'veg.ethnic_group', 'vg.gender')
+			->from(array('victims', 'v'))
+			->join(array('posts', 'p'))
+			->on('v.post_id', '=', 'p.id')
+			->join(array('victim_condition', 'vc'))
+			->on('vc.id', '=', 'v.id_condition')
+			->join(array('victim_ethnic_group', 'veg'))
+			->on('veg.id', '=', 'v.id_ethnic_group')
+			->join(array('victim_gender', 'vg'))
+			->on('vg.id', '=', 'v.id_gender')
+			->where('p.post_date', '>=', $weekago)
+			->whereIn('posts.id', $ids)
+			->where('p.status', '=', 'published');
+		}
 
 		$result = $query->execute()->as_array();
 		$result2 = $query2->execute()->as_array();
