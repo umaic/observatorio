@@ -100,7 +100,22 @@ class Controller_Reports extends Controller {
 		$totals_type = [];
 		$total_categories = [];
 		if(count($result) == 0){
-			array_push($totals, [$result[0]['post_date'] => 1]);
+			$totals_v = [
+				'civiles' => 0,
+				'afros' => 0,
+				'indigenas' => 0,
+				'menores' => 0,
+				'hombres' => 0,
+				'mujeres' => 0
+			];
+			$totals= [
+				"violencia_armada" => [""=> 0],
+				"desastres"=> [""=> 0]
+			];
+			$totals_type= [
+				"Violencia Armada"=> 0,
+				"Desastres"=> 0
+			];
 		}else{
 			$map = function($result) {return $result['name'];};
 			$totals_type = array_count_values(array_map($map, $result));
@@ -151,7 +166,6 @@ class Controller_Reports extends Controller {
 			'hombres' => $hombres,
 			'mujeres' => $mujeres
 		];
-		$params = count($_POST) > 0 ? $_POST['ids'] : [];
 		$data = [
 			'events'=> [
 				'total_by_day' => $totals,
