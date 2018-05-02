@@ -76,7 +76,7 @@ class Controller_Reports extends Controller {
 			->on('tag.id', '=', 'pt.tag_id')
 			->where('posts.post_date', '>=', $weekago)
 			->where('posts.status', '=', 'published')
-			->where('p.id', 'in', $ids)
+			->where('posts.id', 'in', $ids)
 			->order_by('posts.post_date', 'DESC');
 			//Totales
 			$query3 = DB::select('v.amount', 'vc.condition', 'veg.ethnic_group', 'vg.gender')
