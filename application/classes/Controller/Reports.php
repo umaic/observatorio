@@ -44,10 +44,8 @@ class Controller_Reports extends Controller {
 		//Totales
 		$query3 = DB::select('v.amount', 'vc.condition', 'veg.ethnic_group', 'vg.gender')
 		->from(array('victims', 'v'))
-		->join(array('posts_victims', 'pv'))
-		->on('pv.victim_id', '=', 'v.id')
 		->join(array('posts', 'p'))
-		->on('pv.post_id', '=', 'p.id')
+		->on('v.post_id', '=', 'p.id')
 		->join(array('victim_condition', 'vc'))
 		->on('vc.id', '=', 'v.id_condition')
 		->join(array('victim_ethnic_group', 'veg'))
