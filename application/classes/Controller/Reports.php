@@ -24,7 +24,7 @@ class Controller_Reports extends Controller {
 	{
 		$ids = [];
 		if(count($_POST) >0)
-			$ids = $_POST['ids'].explode(",");
+			$ids = explode($_POST['ids'], ",");
 		$weekago = date('Y-m-d', time() - (7 * 24 * 60 * 60));
 		//General
 		if(count($ids)  == 0){
