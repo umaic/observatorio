@@ -100,7 +100,7 @@ class Controller_Reports extends Controller {
 		$totals_type = [];
 		$total_categories = [];
 		if(count($result) == 0){
-			//array_push($totals, [$result[0]['post_date'] => 1]);
+			array_push($totals, [$result[0]['post_date'] => 1]);
 		}else{
 			$map = function($result) {return $result['name'];};
 			$totals_type = array_count_values(array_map($map, $result));
@@ -158,8 +158,7 @@ class Controller_Reports extends Controller {
 				'total_by_type' => $totals_type,
 				'total_by_categories' => $total_categories,
 				'dates' => $dates,
-				'victims_count' => $totals_v,
-				'params' => $query->compile()
+				'victims_count' => $totals_v
 			]
 		];
 
