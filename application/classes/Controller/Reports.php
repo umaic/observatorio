@@ -64,7 +64,7 @@ class Controller_Reports extends Controller {
 			->on('posts.form_id', '=', 'form.id')
 			->where('posts.post_date', '>=', $weekago)
 			->where('posts.status', '=', 'published')
-			->whereIn('posts.id', $ids)
+			->where('posts.id', 'in', $ids)
 			->order_by('posts.post_date', 'DESC');
 			//Categories
 			$query2 = DB::select('tag.tag', 'form.name', 'posts.id')->from('posts')
@@ -76,7 +76,7 @@ class Controller_Reports extends Controller {
 			->on('tag.id', '=', 'pt.tag_id')
 			->where('posts.post_date', '>=', $weekago)
 			->where('posts.status', '=', 'published')
-			->whereIn('posts.id', $ids)
+			->where('posts.id', 'in', $ids)
 			->order_by('posts.post_date', 'DESC');
 			//Totales
 			$query3 = DB::select('v.amount', 'vc.condition', 'veg.ethnic_group', 'vg.gender')
@@ -90,7 +90,7 @@ class Controller_Reports extends Controller {
 			->join(array('victim_gender', 'vg'))
 			->on('vg.id', '=', 'v.id_gender')
 			->where('p.post_date', '>=', $weekago)
-			->whereIn('posts.id', $ids)
+			->where('posts.id', 'in', $ids)
 			->where('p.status', '=', 'published');
 		}
 
