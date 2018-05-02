@@ -117,7 +117,7 @@ class Controller_Reports extends Controller {
 			'hombres' => $hombres,
 			'mujeres' => $mujeres
 		];
-		$params = isset($_POST) ? $_POST['ids'] : [];
+		$params = count($_POST) > 0 ? $_POST['ids'] : [];
 		$data = [
 			'events'=> [
 				'total_by_day' => $totals,
