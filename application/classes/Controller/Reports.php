@@ -22,6 +22,9 @@ class Controller_Reports extends Controller {
 	 */
 	public function action_getData()
 	{
+		$ids = [];
+		if(count($_POST) >0)
+			$ids = $_POST['ids'].explode(",");
 		$weekago = date('Y-m-d', time() - (7 * 24 * 60 * 60));
 		//General
 		$query = DB::select('posts.post_date', 'form.name')->from('posts')
@@ -29,7 +32,8 @@ class Controller_Reports extends Controller {
 		->on('posts.form_id', '=', 'form.id')
 		->where('posts.post_date', '>=', $weekago)
 		->where('posts.status', '=', 'published')
-		->order_by('posts.post_date', 'DESC');
+		count($ids) > 0 ? ->whereIn('eventos_etiquetas.id_etiqueta', $intereses) ->->order_by('posts.post_date', 'DESC') : ->order_by('posts.post_date', 'DESC');
+		//->order_by('posts.post_date', 'DESC');
 		//Categories
 		$query2 = DB::select('tag.tag', 'form.name', 'posts.id')->from('posts')
 		->join(array('forms', 'form'))
