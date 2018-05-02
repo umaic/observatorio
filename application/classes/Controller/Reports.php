@@ -62,7 +62,7 @@ class Controller_Reports extends Controller {
 			$query = DB::select('posts.post_date', 'form.name')->from('posts')
 			->join(array('forms', 'form'))
 			->on('posts.form_id', '=', 'form.id')
-			->where('posts.id_', 'in', $ids)
+			->where('posts.id', 'in', $ids)
 			->order_by('posts.post_date', 'DESC');
 			//Categories
 			$query2 = DB::select('tag.tag', 'form.name', 'posts.id')->from('posts')
@@ -85,7 +85,7 @@ class Controller_Reports extends Controller {
 			->on('veg.id', '=', 'v.id_ethnic_group')
 			->join(array('victim_gender', 'vg'))
 			->on('vg.id', '=', 'v.id_gender')
-			->where('p.id', 'in', $ids)
+			->where('p.id', 'in', $ids);
 		}
 
 		$result = $query->execute()->as_array();
