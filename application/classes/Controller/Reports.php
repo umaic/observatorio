@@ -106,7 +106,11 @@ class Controller_Reports extends Controller {
 				'indigenas' => 0,
 				'menores' => 0,
 				'hombres' => 0,
-				'mujeres' => 0
+				'mujeres' => 0,
+				'extranjero' => 0,
+				'no_info' => 0,
+				'otro' => 0, 
+				'desconocido' => 0
 			];
 			$totals= [
 				"violencia_armada" => [""=> 0],
@@ -150,6 +154,10 @@ class Controller_Reports extends Controller {
 		$hombres = 0;
 		$mujeres = 0;
 		$indigenas = 0;
+		$extranjero = 0;
+		$no_info = 0;
+		$otro = 0;
+		$desconocido = 0;
 		foreach($victims_count as $v) {
 			$civils += $v['condition'] == 'civil' ? $v['amount'] : 0;
 			$afros += $v['ethnic_group'] == 'afro' ? $v['amount'] : 0;
@@ -157,6 +165,10 @@ class Controller_Reports extends Controller {
 			$menores += $v['ethnic_group'] == 'menores' ? $v['amount'] : 0;
 			$hombres += $v['gender'] == 'masculino' ? $v['amount'] : 0;
 			$mujeres += $v['gender'] == 'femenino' ? $v['amount'] : 0;
+			$extranjero += $v['ethnic_group'] == 'extranjero' ? $v['amount'] : 0;
+			$no_info += $v['ethnic_group'] == 'no_info' ? $v['amount'] : 0;
+			$otro += $v['ethnic_group'] == 'otro' ? $v['amount'] : 0;
+			$desconocido += $v['gender'] == 'desconocido' ? $v['amount'] : 0;
 		}
 		$totals_v = [
 			'civiles' => $civils,
@@ -164,7 +176,11 @@ class Controller_Reports extends Controller {
 			'indigenas' => $indigenas,
 			'menores' => $menores,
 			'hombres' => $hombres,
-			'mujeres' => $mujeres
+			'mujeres' => $mujeres,
+			'extranjero' => $extranjero,
+			'no_info' => $no_info,
+			'otro' => $otro,
+			'desconocido' => $desconocido
 		];
 		$data = [
 			'events'=> [
