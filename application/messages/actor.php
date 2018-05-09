@@ -1,10 +1,10 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
 return array(
-	'isSlugAvailable' => ':field :value is already in use',
-	'isRoleValid' => 'Role must match the parent actor',
-	'actor.role.isRoleValid' => 'Role must match the parent actor',
-	'description.regex' => 'The description must contain only letters, numbers, spaces and punctuation',
-	'actor.regex' => 'The actor name must contain only letters, numbers, spaces and punctuation',
+	'isSlugAvailable' => ':field :value ya esta en uso',
+	'isRoleValid' => 'El rol debe coincidir con el actor principal',
+	'actor.role.isRoleValid' => 'El rol debe coincidir con el actor principal',
+	'description.regex' => 'La descripción debe contener solo letras, números, espacios y signos de puntuación',
+	'actor.regex' => 'El nombre del actor debe contener solo letras, números, espacios y signos de puntuación',
 );
 

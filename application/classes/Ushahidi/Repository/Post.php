@@ -979,16 +979,19 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
             $insert = DB::insert('post_tag_actor', ['post_id', 'tag_id', 'actor_id']);
             $run_insert = false;
             foreach ($values['actor_category'] as $key => $act_cat) {
-                if (count($act_cat['actors']) > 0) {
+                if (isset($act_cat['actors']) && count($act_cat['actors']) > 0) {
                     $run_insert = true;
                 }
-                foreach ($act_cat['actors'] as $k => $val) {
-                    $insert->values([
-                        $id,
-                        $act_cat['category'],
-                        $val
-                    ]);
-                }
+                if (isset($act_cat['actors'])) {
+                                    foreach ($act_cat['actors'] as $k => $val) {
+                                                        $insert->values([
+                                                            $id,
+                                                            $act_cat['category'],
+                                                            $val
+                                                        ]);
+                                                    }
+                                }
+
             }
             if ($run_insert) {
                 $insert->execute($this->db);
@@ -1001,25 +1004,28 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
                 , 'id_status', 'tag_id']);
             $run_insert = false;
             foreach ($values['victim_category'] as $key => $vic_cat) {
-                if (count($vic_cat['victims']) > 0) {
+                if (isset($vic_cat['victims']) && count($vic_cat['victims']) > 0) {
                     $run_insert = true;
                 }
-                foreach ($vic_cat['victims'] as $k => $val) {
-                    $insert->values([
-                        $id,
-                        $val['amount'],
-                        $val['victim_gender'],
-                        $val['victim_ethnic_group'],
-                        $val['victim_sub_ethnic_group'],
-                        $val['victim_condition'],
-                        $val['victim_sub_condition'],
-                        $val['victim_occupation'],
-                        $val['victim_age_group'],
-                        $val['victim_age'],
-                        $val['victim_status'],
-                        $vic_cat['category'],
-                    ]);
-                }
+                if (isset($vic_cat['victims'])) {
+                                    foreach ($vic_cat['victims'] as $k => $val) {
+                                                        $insert->values([
+                                                            $id,
+                                                            $val['amount'],
+                                                            $val['victim_gender'],
+                                                            $val['victim_ethnic_group'],
+                                                            $val['victim_sub_ethnic_group'],
+                                                            $val['victim_condition'],
+                                                            $val['victim_sub_condition'],
+                                                            $val['victim_occupation'],
+                                                            $val['victim_age_group'],
+                                                            $val['victim_age'],
+                                                            $val['victim_status'],
+                                                            $vic_cat['category'],
+                                                        ]);
+                                                    }
+                                }
+
             }
             if ($run_insert) {
                 $insert->execute($this->db);
@@ -1124,15 +1130,17 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
             $insert = DB::insert('post_tag_actor', ['post_id', 'tag_id', 'actor_id']);
             $run_insert = false;
             foreach ($values['actor_category'] as $key => $act_cat) {
-                if (count($act_cat['actors']) > 0) {
+                if (isset($act_cat['actors']) && count($act_cat['actors']) > 0) {
                     $run_insert = true;
                 }
+                if(isset($act_cat['actors'])){
                 foreach ($act_cat['actors'] as $k => $val) {
-                    $insert->values([
-                        $entity->id,
-                        $act_cat['category'],
-                        $val
-                    ]);
+                        $insert->values([
+                            $entity->id,
+                            $act_cat['category'],
+                            $val
+                        ]);
+                    }
                 }
             }
             if ($run_insert) {
@@ -1148,25 +1156,28 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
                 , 'id_status', 'tag_id']);
             $run_insert = false;
             foreach ($values['victim_category'] as $key => $vic_cat) {
-                if (count($vic_cat['victims']) > 0) {
+                if (isset($vic_cat['victims']) && count($vic_cat['victims']) > 0) {
                     $run_insert = true;
                 }
-                foreach ($vic_cat['victims'] as $k => $val) {
-                    $insert->values([
-                        $entity->id,
-                        $val['amount'],
-                        $val['victim_gender'],
-                        $val['victim_ethnic_group'],
-                        $val['victim_sub_ethnic_group'],
-                        $val['victim_condition'],
-                        $val['victim_sub_condition'],
-                        $val['victim_occupation'],
-                        $val['victim_age_group'],
-                        $val['victim_age'],
-                        $val['victim_status'],
-                        $vic_cat['category'],
-                    ]);
+                if(isset($vic_cat['victims'])){
+                 foreach ($vic_cat['victims'] as $k => $val) {
+                                    $insert->values([
+                                        $entity->id,
+                                        $val['amount'],
+                                        $val['victim_gender'],
+                                        $val['victim_ethnic_group'],
+                                        $val['victim_sub_ethnic_group'],
+                                        $val['victim_condition'],
+                                        $val['victim_sub_condition'],
+                                        $val['victim_occupation'],
+                                        $val['victim_age_group'],
+                                        $val['victim_age'],
+                                        $val['victim_status'],
+                                        $vic_cat['category'],
+                                    ]);
+                                }
                 }
+
             }
             if ($run_insert) {
                 $insert->execute($this->db);

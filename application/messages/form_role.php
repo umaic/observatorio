@@ -2,6 +2,6 @@
 
 return [
 	'roles' => [
-		'roleDoesNotExist' => 'role_id :value does not exist',
+		'roleDoesNotExist' => 'role_id :value no existe',
 	]
 ];
