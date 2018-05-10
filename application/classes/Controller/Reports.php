@@ -315,9 +315,9 @@ class Controller_Reports extends Controller
 		`victim_status`.`status`,
 		`tags`.`tag`,
 		`actors`.`tag` AS actor,
-		`post_source_detail`.`event_desc`,
-		`post_source_detail`.`url`,
-		`post_source_detail`.`event_date`')
+		`post_source_detail`.`event_desc` as source_desc,
+		`post_source_detail`.`url` as source_url,
+		`post_source_detail`.`event_date` as source_date')
         )->from('posts')
             ->join('forms', 'LEFT')
             ->on('posts.form_id', '=', 'forms.id')
