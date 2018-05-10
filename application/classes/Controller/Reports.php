@@ -303,7 +303,7 @@ class Controller_Reports extends Controller
 		->join('actors', 'LEFT')
 		->on('actors.id', '=', 'post_tag_actor.actor_id')
 		->join('post_source_detail', 'LEFT')
-		->on('post_source_detail.post.id', '=', 'posts.id');
+		->on('post_source_detail.post_id', '=', 'posts.id');
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
