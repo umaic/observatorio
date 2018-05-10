@@ -318,7 +318,7 @@ class Controller_Reports extends Controller
             'actors.tag',
             'post_source_detail.event_desc',
             'post_source_detail.url',
-            'post_source_detail.event_date'
+            'post_source_detail.event_date.'
         )->from('posts')
             ->join('forms', 'LEFT')
             ->on('posts.form_id', '=', 'forms.id')
