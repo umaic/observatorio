@@ -15,94 +15,93 @@ use Ushahidi\Core\SearchData;
 
 class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 {
-	use GeoJSONFormatter;
+    use GeoJSONFormatter;
 
-	// Formatter
-	public function __invoke($entities)
-	{
-		if (!is_array($entities)) {
-			throw new FormatterException('Collection formatter requries an array of entities');
-		}
+    // Formatter
+    public function __invoke($entities)
+    {
+        if (!is_array($entities)) {
+            throw new FormatterException('Collection formatter requries an array of entities');
+        }
 
-		$output = [
-			'type' => 'FeatureCollection',
-			'features' => []
-		];
+        $output = [
+            'type' => 'FeatureCollection',
+            'features' => []
+        ];
 
-		foreach ($entities as $entity)
-		{
-			$geometries = [];
-			foreach($entity->values as $attribute => $values)
-			{
-				foreach ($values as $value)
-				{
-					if ($geometry = $this->valueToGeometry($value))
-					{
-						$geometries[] = $geometry;
-					}
-				}
-			}
+        foreach ($entities as $entity) {
 
-			if (! empty($geometries))
-			{
-				$color = ltrim($entity->color, '#');
-				$color = $color ? '#' . $color : null;
+            $victims = 0;
+            if (isset($entity->values['victim_category']) && count($entity->values['victim_category']) > 0) {
+                foreach ($entity->values['victim_category'] as $attribute => $values) {
+                    $victims += ($values['amount']) ? intval($values['amount']) : 0;
+                }
+            }
+            $geometries = [];
+            foreach ($entity->values as $attribute => $values) {
+                foreach ($values as $value) {
+                    if ($geometry = $this->valueToGeometry($value)) {
+                        $geometries[] = $geometry;
+                    }
+                }
+            }
 
-				$output['features'][] = [
-					'type' => 'Feature',
-					'geometry' => [
-						'type' => 'GeometryCollection',
-						'geometries' => $geometries
-					],
-					'properties' => [
-						'title' => $entity->title,
-						'description' => $entity->content,
-						'marker-color' => $color,
-						'id' => $entity->id,
-						'form' => $entity->form_id,
-						'url' => URL::site(Ushahidi_Rest::url($entity->getResource(), $entity->id), Request::current()),
-						// @todo add mark- attributes based on tag symbol+color
-						//'marker-size' => '',
-						//'marker-symbol' => '',
-						//'resource' => $entity
-					]
-				];
-			}
-		}
+            if (!empty($geometries)) {
+                $color = ltrim($entity->color, '#');
+                $color = $color ? '#' . $color : null;
 
-		if ($this->search->bbox)
-		{
-			if (is_array($this->search->bbox))
-			{
-				$bbox = $this->search->bbox;
-			}
-			else
-			{
-				$bbox = explode(',', $this->search->bbox);
-			}
+                $output['features'][] = [
+                    'type' => 'Feature',
+                    'geometry' => [
+                        'type' => 'GeometryCollection',
+                        'geometries' => $geometries
+                    ],
+                    'properties' => [
+                        'title' => $entity->title,
+                        'description' => $entity->content,
+                        'marker-color' => $color,
+                        'id' => $entity->id,
+                        'form' => $entity->form_id,
+                        'victims' => $victims,
+                        'url' => URL::site(Ushahidi_Rest::url($entity->getResource(), $entity->id), Request::current()),
+                        // @todo add mark- attributes based on tag symbol+color
+                        //'marker-size' => '',
+                        //'marker-symbol' => '',
+                        //'resource' => $entity
+                    ]
+                ];
+            }
+        }
 
-			$output['bbox'] = $bbox;
-		}
+        if ($this->search->bbox) {
+            if (is_array($this->search->bbox)) {
+                $bbox = $this->search->bbox;
+            } else {
+                $bbox = explode(',', $this->search->bbox);
+            }
 
-		// Note: Appending total output despite it not being in the geojson Spec
-		// this field is used by the client so that it can determine how many requests to make
-		// in order to retrieve all the posts
-		$output['total'] = $this->total;
-		return $output;
-	}
+            $output['bbox'] = $bbox;
+        }
 
-	/**
-	 * Store paging parameters.
-	 *
-	 * @param  SearchData $search
-	 * @param  Integer    $total
-	 * @return $this
-	 */
-	public function setSearch(SearchData $search, $total = null)
-	{
-		$this->search = $search;
-		$this->total  = $total;
-		return $this;
-	}
+        // Note: Appending total output despite it not being in the geojson Spec
+        // this field is used by the client so that it can determine how many requests to make
+        // in order to retrieve all the posts
+        $output['total'] = $this->total;
+        return $output;
+    }
+
+    /**
+     * Store paging parameters.
+     *
+     * @param  SearchData $search
+     * @param  Integer $total
+     * @return $this
+     */
+    public function setSearch(SearchData $search, $total = null)
+    {
+        $this->search = $search;
+        $this->total = $total;
+        return $this;
+    }
 
 }
