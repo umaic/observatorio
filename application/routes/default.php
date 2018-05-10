@@ -341,6 +341,12 @@ Route::set('report-home', 'report')
 		'action'     => 'getData',
 		'controller' => 'Reports',
 	));
+
+Route::set('report-t', 'report-test')
+	->defaults(array(
+		'action'     => 'getDataTest',
+		'controller' => 'Reports',
+	));
 Route::set('victimsData', 'victims-data')
 	->defaults(array(
 		'action'     => 'getData',

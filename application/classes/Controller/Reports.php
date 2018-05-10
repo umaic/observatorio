@@ -259,7 +259,7 @@ class Controller_Reports extends Controller {
 		->join(array('post_tag_actor', 'pta', 'LEFT'))
 		->on('pta.post_id', '=', 'posts.id')
 		->join(array('actors', 'ac', 'LEFT'))
-		->on('ac.id', '=', 'pta.actor_id')
+		->on('ac.id', '=', 'pta.actor_id');
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
