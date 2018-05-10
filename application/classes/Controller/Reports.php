@@ -353,20 +353,23 @@ class Controller_Reports extends Controller
 		$data = $query->execute()->as_array();
 		$fp = fopen('export.csv', "w");
 
+		fputcsv($fp, $data);
+		fclose($fp);
+
 		$line = "";
 		$comma = "";
-		foreach($data as $name => $value) {
+		/*foreach($data as $name => $value) {
 			$line .= $comma . '"' . str_replace('"', '""', $name) . '"';
 			$comma = ",";
-		}
-		$line .= "\n";
-		fputs($fp, $line);
+		}*/
+		//$line .= "\n";
+		//fputs($fp, $line);
 		
         $this->response->headers('Access-Control-Allow-Origin', '*');
         $this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
-		$this->response->headers('Content-type: text/csv');
-		$this->response->headers('Content-Disposition: attachment; filename="export.csv"');
+		$this->response->headers('Content-Type: application/excel');
+		$this->response->headers('Content-Disposition: attachment; filename=\"export.csv\"');
         //$this->response->body(json_encode($query->execute()->as_array()));
     }
 
