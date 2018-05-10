@@ -268,8 +268,8 @@ class Controller_Reports extends Controller
 			'victim_age.age',
 			'victim_age_group.age_group',
 			'victim_status.status',
-			'tags.tag as tag',
-			'actors.tag as actor',
+			'tags.tag',
+			'actors.tag',
 			'post_source_detail.event_desc',
 			'post_source_detail.url',
 			'post_source_detail.event_date'
