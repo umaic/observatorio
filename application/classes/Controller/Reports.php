@@ -271,7 +271,7 @@ class Controller_Reports extends Controller
 			'tags.tag',
 			'actors.tag',
 			'post_source_detail.event_desc',
-			'post_source_detail.event_url',
+			'post_source_detail.url',
 			'post_source_detail.event_date'
 		)->from('posts')
 		->join('forms', 'LEFT')
