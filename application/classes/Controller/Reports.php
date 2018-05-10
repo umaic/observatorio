@@ -252,27 +252,27 @@ class Controller_Reports extends Controller
 	{
 		$query = DB::select(
 			'posts.id',
-			'form.name', 
+			'forms.name', 
 			'posts.title',
 			'posts.slug',
 			'posts.content',
 			'posts.status',
 			'posts.post_date', 
-			'v.amount', 
-			'vc.condition', 
-			'veg.ethnic_group', 
-			'vg.gender',
-			'vseg.sub_ethnic_group',
-			'vsc.sub_condition',
-			'vo.occupation',
-			'va.age',
-			'vag.age_group',
-			'vs.status',
-			'tag.tag',
-			'ac.tag',
-			'psd.event_desc',
-			'psd.event_url',
-			'psd.event_date'
+			'victims.amount', 
+			'victim_condition.condition', 
+			'victim_ethnic_group.ethnic_group', 
+			'victim_gender.gender',
+			'victim_sub_ethnic_group.sub_ethnic_group',
+			'victim_sub_condition.sub_condition',
+			'victim_occupation.occupation',
+			'victim_age.age',
+			'victim_age_group.age_group',
+			'victim_status.status',
+			'tags.tag',
+			'actors.tag',
+			'post_source_detail.event_desc',
+			'post_source_detail.event_url',
+			'post_source_detail.event_date'
 		)->from('posts')
 		->join('forms', 'LEFT')
 		->on('posts.form_id', '=', 'forms.id')
