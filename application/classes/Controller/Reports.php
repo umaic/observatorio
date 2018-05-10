@@ -361,13 +361,20 @@ class Controller_Reports extends Controller
 		}
 		$line .= "\n";
 		fputs($fp, $line);
+
+		$objPHPExcel = new PHPExcel();
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', 'Hello world!');
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+
+		$this->response->body( $objWriter->save('php://output'));
+		$this->response->send_file(TRUE, '01simple.xls');
 		
-        $this->response->headers('Access-Control-Allow-Origin', '*');
+        /*$this->response->headers('Access-Control-Allow-Origin', '*');
         $this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
 		$this->response->headers('Content-type: text/csv');
 		$this->response->headers('Content-Disposition: attachment; filename="export.csv"');
-        $this->response->body($fp); 
+        $this->response->body($fp); */
     }
 
 }
