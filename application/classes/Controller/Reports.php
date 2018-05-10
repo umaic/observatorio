@@ -367,7 +367,7 @@ class Controller_Reports extends Controller
 		$this->response->headers("Access-Control-Allow-Headers", '*');
 		$this->response->headers('Content-type: text/csv');
 		$this->response->headers('Content-Disposition: attachment; filename="export.csv"');
-        $this->response->body($fp);
+        $this->response->body($fp); 
     }
 
 }
