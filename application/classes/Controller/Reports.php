@@ -319,41 +319,55 @@ class Controller_Reports extends Controller
 		`post_source_detail`.`url` as source_url,
 		`post_source_detail`.`event_date` as source_date')
         )->from('posts')
-            ->join('forms', 'LEFT')
-            ->on('posts.form_id', '=', 'forms.id')
-            ->join('victims', 'LEFT')
-            ->on('posts.id', '=', 'victims.post_id')
-            ->join('victim_condition', 'LEFT')
-            ->on('victim_condition.id', '=', 'victims.id_condition')
-            ->join('victim_ethnic_group', 'LEFT')
-            ->on('victim_ethnic_group.id', '=', 'victims.id_ethnic_group')
-            ->join('victim_gender', 'LEFT')
-            ->on('victim_gender.id', '=', 'victims.id_gender')
-            ->join('victim_sub_ethnic_group', 'LEFT')
-            ->on('victim_sub_ethnic_group.id', '=', 'victims.id_sub_ethnic_group')
-            ->join('victim_sub_condition', 'LEFT')
-            ->on('victim_sub_condition.id', '=', 'victims.id_sub_condition')
-            ->join('victim_occupation', 'LEFT')
-            ->on('victim_occupation.id', '=', 'victims.id_occupation')
-            ->join('victim_age', 'LEFT')
-            ->on('victim_age.id', '=', 'victims.id_age')
-            ->join('victim_age_group', 'LEFT')
-            ->on('victim_age_group.id', '=', 'victims.id_age_group')
-            ->join('victim_status', 'LEFT')
-            ->on('victim_status.id', '=', 'victims.id_status')
-            ->join('tags', 'LEFT')
-            ->on('tags.id', '=', 'victims.tag_id')
-            ->join('post_tag_actor', 'LEFT')
-            ->on('post_tag_actor.post_id', '=', 'posts.id')
-            ->join('actors', 'LEFT')
-            ->on('actors.id', '=', 'post_tag_actor.actor_id')
-            ->join('post_source_detail', 'LEFT')
-            ->on('post_source_detail.post_id', '=', 'posts.id');
+		->join('forms', 'LEFT')
+		->on('posts.form_id', '=', 'forms.id')
+		->join('victims', 'LEFT')
+		->on('posts.id', '=', 'victims.post_id')
+		->join('victim_condition', 'LEFT')
+		->on('victim_condition.id', '=', 'victims.id_condition')
+		->join('victim_ethnic_group', 'LEFT')
+		->on('victim_ethnic_group.id', '=', 'victims.id_ethnic_group')
+		->join('victim_gender', 'LEFT')
+		->on('victim_gender.id', '=', 'victims.id_gender')
+		->join('victim_sub_ethnic_group', 'LEFT')
+		->on('victim_sub_ethnic_group.id', '=', 'victims.id_sub_ethnic_group')
+		->join('victim_sub_condition', 'LEFT')
+		->on('victim_sub_condition.id', '=', 'victims.id_sub_condition')
+		->join('victim_occupation', 'LEFT')
+		->on('victim_occupation.id', '=', 'victims.id_occupation')
+		->join('victim_age', 'LEFT')
+		->on('victim_age.id', '=', 'victims.id_age')
+		->join('victim_age_group', 'LEFT')
+		->on('victim_age_group.id', '=', 'victims.id_age_group')
+		->join('victim_status', 'LEFT')
+		->on('victim_status.id', '=', 'victims.id_status')
+		->join('tags', 'LEFT')
+		->on('tags.id', '=', 'victims.tag_id')
+		->join('post_tag_actor', 'LEFT')
+		->on('post_tag_actor.post_id', '=', 'posts.id')
+		->join('actors', 'LEFT')
+		->on('actors.id', '=', 'post_tag_actor.actor_id')
+		->join('post_source_detail', 'LEFT')
+		->on('post_source_detail.post_id', '=', 'posts.id');
+		
+		$data = $query->execute()->as_array();
+		$fp = fopen('export.csv', "w");
+
+		$line = "";
+		$comma = "";
+		foreach($data as $name => $value) {
+			$line .= $comma . '"' . str_replace('"', '""', $name) . '"';
+			$comma = ",";
+		}
+		$line .= "\n";
+		fputs($fp, $line);
+		
         $this->response->headers('Access-Control-Allow-Origin', '*');
         $this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-        $this->response->headers("Access-Control-Allow-Headers", '*');
-        $this->response->headers('Content-Type', 'application/json; charset=utf-8');
-        $this->response->body(json_encode($query->execute()->as_array()));
+		$this->response->headers("Access-Control-Allow-Headers", '*');
+		$this->response->headers('Content-type: text/csv');
+		$this->response->headers('Content-Disposition: attachment; filename="export.csv"');
+        //$this->response->body(json_encode($query->execute()->as_array()));
     }
 
 }
