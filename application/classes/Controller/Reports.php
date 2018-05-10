@@ -301,7 +301,7 @@ class Controller_Reports extends Controller
 		->join('post_tag_actor', 'LEFT')
 		->on('post_tag_actor.post_id', '=', 'posts.id')
 		->join('actors', 'LEFT')
-		->on('actors.id', '=', 'post_tag_actorpta.actor_id')
+		->on('actors.id', '=', 'post_tag_actor.actor_id')
 		->join('post_source_detail', 'LEFT')
 		->on('post_source_detail.post.id', '=', 'posts.id');
 		$this->response->headers('Access-Control-Allow-Origin', '*');
