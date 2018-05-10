@@ -244,11 +244,12 @@ class Controller_Reports extends Controller
 	public function action_getDataTest()
 	{
 		$query = DB::select(
+			'posts.id',
 			'form.name', 
 			'posts.title',
 			'posts.slug',
 			'posts.content',
-			'post.status',
+			'posts.status',
 			'posts.post_date', 
 			'v.amount', 
 			'vc.condition', 
@@ -258,41 +259,46 @@ class Controller_Reports extends Controller
 			'vsc.sub_condition',
 			'vo.occupation',
 			'va.age',
-			'va.age_group',
+			'vag.age_group',
 			'vs.status',
 			'tag.tag',
-			'ac.tag'
+			'ac.tag',
+			'psd.event_desc',
+			'psd.event_url',
+			'psd.event_date'
 		)->from('posts')
-		->join(array('forms', 'form', 'LEFT'))
+		->join('forms', 'form', 'LEFT')
 		->on('posts.form_id', '=', 'form.id')
-		->join(array('victims', 'v', 'LEFT'))
+		->join('victims', 'v', 'LEFT')
 		->on('post.id', '=', 'v.post_id')
-		->join(array('posts', 'p', 'LEFT'))
-		->on('v.post_id', '=', 'p.id')
-		->join(array('victim_condition', 'vc', 'LEFT'))
+		->join('posts', 'p', 'LEFT')
+		->on('v.posts_id', '=', 'p.id')
+		->join('victim_condition', 'vc', 'LEFT')
 		->on('vc.id', '=', 'v.id_condition')
-		->join(array('victim_ethnic_group', 'veg', 'LEFT'))
+		->join('victim_ethnic_group', 'veg', 'LEFT')
 		->on('veg.id', '=', 'v.id_ethnic_group')
-		->join(array('victim_gender', 'vg', 'LEFT'))
+		->join('victim_gender', 'vg', 'LEFT')
 		->on('vg.id', '=', 'v.id_gender')
-		->join(array('victim_sub_ethnic_group', 'vseg', 'LEFT'))
+		->join('victim_sub_ethnic_group', 'vseg', 'LEFT')
 		->on('vseg.id', '=', 'v.id_sub_ethnic_group')
-		->join(array('victim_sub_condition', 'vsc', 'LEFT'))
+		->join('victim_sub_condition', 'vsc', 'LEFT')
 		->on('vsc.id', '=', 'v.id_sub_condition')
-		->join(array('victim_occupation', 'vo', 'LEFT'))
+		->join('victim_occupation', 'vo', 'LEFT')
 		->on('vo.id', '=', 'v.id_occupation')
-		->join(array('victim_age', 'va', 'LEFT'))
+		->join('victim_age', 'va', 'LEFT')
 		->on('va.id', '=', 'v.id_age')
-		->join(array('victim_age_group', 'vag', 'LEFT'))
+		->join('victim_age_group', 'vag', 'LEFT')
 		->on('vag.id', '=', 'v.id_age_group')
-		->join(array('victim_status', 'vs', 'LEFT'))
+		->join('victim_status', 'vs', 'LEFT')
 		->on('vs.id', '=', 'v.id_status')
-		->join(array('tags', 'tag', 'LEFT'))
+		->join('tags', 'tag', 'LEFT')
 		->on('tag.id', '=', 'v.tag_id')
-		->join(array('post_tag_actor', 'pta', 'LEFT'))
+		->join('post_tag_actor', 'pta', 'LEFT')
 		->on('pta.post_id', '=', 'posts.id')
-		->join(array('actors', 'ac', 'LEFT'))
-		->on('ac.id', '=', 'pta.actor_id');
+		->join('actors', 'ac', 'LEFT')
+		->on('ac.id', '=', 'pta.actor_id')
+		->join('post_source_detail', 'psd', 'LEFT')
+		->on('psd.post.id', '=', 'posts.id');
 		$this->response->headers('Access-Control-Allow-Origin', '*');
 		$this->response->headers('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
 		$this->response->headers("Access-Control-Allow-Headers", '*');
