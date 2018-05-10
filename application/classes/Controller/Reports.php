@@ -278,8 +278,6 @@ class Controller_Reports extends Controller
 		->on('posts.form_id', '=', 'forms.id')
 		->join('victims', 'LEFT')
 		->on('post.id', '=', 'victims.post_id')
-		->join('victims', 'LEFT')
-		->on('victims.posts_id', '=', 'posts.id')
 		->join('victim_condition', 'LEFT')
 		->on('victim_condition.id', '=', 'victims.id_condition')
 		->join('victim_ethnic_group', 'LEFT')
