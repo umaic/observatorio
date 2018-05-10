@@ -296,29 +296,28 @@ class Controller_Reports extends Controller
 
     public function action_getDataTest()
     {
-        $query = DB::select(
-            'posts.id',
-            'forms.name',
-            'posts.title',
-            'posts.slug',
-            'posts.content',
-            'posts.status',
-            'posts.post_date',
-            'victims.amount',
-            'victim_condition.condition',
-            'victim_ethnic_group.ethnic_group',
-            'victim_gender.gender',
-            'victim_sub_ethnic_group.sub_ethnic_group',
-            'victim_sub_condition.sub_condition',
-            'victim_occupation.occupation',
-            'victim_age.age',
-            'victim_age_group.age_group',
-            'victim_status.status',
-            'tags.tag',
-            'actors.tag',
-            'post_source_detail.event_desc',
-            'post_source_detail.url',
-            'post_source_detail.event_date.'
+        $query = DB::select(DB::expr('`posts`.`id`,
+		`forms`.`name`,
+		`posts`.`title`,
+		`posts`.`slug`,
+		`posts`.`content`,
+		`posts`.`status`,
+		`posts`.`post_date`,
+		`victims`.`amount`,
+		`victim_condition`.`condition`,
+		`victim_ethnic_group`.`ethnic_group`,
+		`victim_gender`.`gender`,
+		`victim_sub_ethnic_group`.`sub_ethnic_group`,
+		`victim_sub_condition`.`sub_condition`,
+		`victim_occupation`.`occupation`,
+		`victim_age`.`age`,
+		`victim_age_group`.`age_group`,
+		`victim_status`.`status`,
+		`tags`.`tag`,
+		`actors`.`tag` AS actor,
+		`post_source_detail`.`event_desc`,
+		`post_source_detail`.`url`,
+		`post_source_detail`.`event_date`')
         )->from('posts')
             ->join('forms', 'LEFT')
             ->on('posts.form_id', '=', 'forms.id')
