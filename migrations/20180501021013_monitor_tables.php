@@ -9,6 +9,8 @@ class MonitorTables extends AbstractMigration
      */
     public function up()
     {
+        $this->execute("INSERT INTO oauth_scopes (scope, name) VALUES ('actors', 'actors')");
+        $this->execute("INSERT INTO oauth_scopes (scope, name) VALUES ('sources', 'sources')");
         $this->execute("
             CREATE TABLE `actors` (
               `id` int(11) NOT NULL AUTO_INCREMENT,
